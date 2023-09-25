@@ -48,4 +48,54 @@ router.post('/add_to_cart', async (req: Request, res: Response) => {
     }
 });
 
+router.patch('/edit_cart', async (req: Request, res: Response) => {
+    try {
+        const { user_id, product_id, quantity } = req.body;
+
+        // Check if the user and product exist before updating the cart
+        const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [user_id]);
+        const product = await pool.query('SELECT * FROM products WHERE product_id = $1', [product_id]);
+
+        if (user.rows.length === 0) {
+            return res.status(404).send('User not found');
+        }
+
+        if (product.rows.length === 0) {
+            return res.status(404).send('Product not found');
+        }
+
+        // Update the quantity of the cart item
+        const updatedCartItem = await pool.query(
+            'UPDATE shopping_cart SET quantity = $1 WHERE user_id = $2 AND product_id = $3 RETURNING *',
+            [quantity, user_id, product_id]
+        );
+
+        res.json(updatedCartItem.rows[0]); // Return the updated cart item
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+router.get('/get_cart/:user_id', async (req: Request, res: Response) => {
+    try {
+        const { user_id } = req.params;
+
+        const cartData = await pool.query(
+            'SELECT shopping_cart.cart_id, shopping_cart.product_id, products.product_name, products.product_price, shopping_cart.quantity, ' +
+            '(products.product_price * shopping_cart.quantity) AS total_price, users.user_name ' +
+            'FROM shopping_cart ' +
+            'INNER JOIN products ON shopping_cart.product_id = products.product_id ' +
+            'INNER JOIN users ON shopping_cart.user_id = users.user_id ' +
+            'WHERE shopping_cart.user_id = $1',
+            [user_id]
+        );
+
+        res.json(cartData.rows);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+})
+
 export default router;
