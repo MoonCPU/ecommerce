@@ -83,7 +83,7 @@ function Card() {
     }
 
     return (
-        <div className="flex">
+        <div className="max-w-4xl mx-auto">
             {ProductCards.length > 0 ? (
                 <div className="flex flex-wrap flex-row gap-4 items-center justify-center">
                     {ProductCards.map((card) => (

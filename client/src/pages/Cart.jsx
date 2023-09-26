@@ -25,22 +25,20 @@ function Cart() {
     };
 
     // calculate total price of product
-    const handleQuantityChange = async (productId, newQuantity) => {
+    const handleQuantityChange = async (cartId, newQuantity) => {
         try {
-            const updatedCartItem = cartItems.find(item => item.product_id === productId);
+            const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
             await axios.patch('http://localhost:5000/cart/edit_cart', {
                 user_id: user.user_id,
-                product_id: productId,
+                cart_id: cartId, 
                 quantity: newQuantity,
-                total_price: newTotalPrice
             });
     
-            // Update the cart items individually without changing their order
             setCartItems(prevCartItems =>
                 prevCartItems.map(item =>
-                    item.product_id === productId
+                    item.cart_id === cartId 
                         ? { ...item, quantity: newQuantity, total_price: newTotalPrice }
                         : item
                 )
@@ -51,28 +49,40 @@ function Cart() {
     };
 
     return (
-        <div className="max-w-2xl sm:max-w-3xl mx-auto">
+        <div>
             {cartItems.length > 0 ? (
-                <div>
+                <div className='flex flex-col max-w-2xl mx-auto gap-y-4'>
                     {cartItems.map((item) => (
-                        <div key={item.product_id} className='m-4 mb-6 text-left grid grid-cols-3 gap-3 sm:gap-8 sm:text-2xl sm:max-w-md sm:mx-auto sm:px-5'>
-                            <div className='p-3 box-border border-r-2 border-black'><img src={`/shoes/${item.product_id}.png`} alt={item.product_name} /></div>
-                            <div className='flex flex-col gap-2 box-border pl-2'>
-                                <div className='text-lg sm:text-2xl font-semibold'>
-                                    {item.product_name}
+                        <div key={item.cart_id} className='flex flex-row justify-around shadow-md'>
+                            <div className='max-w-[150px]'>
+                                <div className='text-xl font-bold ml-2'>
+                                    {item.product_name}    
                                 </div>
-                                <div className='font-bold text-orange-600'>
-                                    {`R$${item.total_price}`}
+                                <img className='box-border p-3' src={`/shoes/${item.product_id}.png`} alt={item.product_name} />
+                            </div>
+
+                            <div className='flex flex-col items-center justify-center gap-y-4'>
+                                <div className='flex-2 flex flex-row gap-4 items-center justify-center'>
+                                    <GrFormPrevious size={40} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity - 1)} /> 
+                                    <div className='text-2xl'>{item.quantity}</div>
+                                    <GrFormNext size={40} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity + 1)} /> 
+                                </div>      
+                                <div className='text-xl font-semibold box-border border-2 border-black px-4'>
+                                    {item.product_size}                                         
                                 </div>
+                            </div>
+
+                            <div className='flex items-center justify-between text-lg gap-4'>
                                 <div>
-                                    {item.product_size}
+                                    {item.quantity} X {item.product_price}
+                                </div>
+                                <div className="h-[100px] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20 dark:opacity-100"></div>
+                                <div className='text-2xl font-bold text-orange-600'>
+                                    {`R$${item.total_price}`}      
                                 </div>
                             </div>
-                            <div className='flex flex-row justify-center items-center gap-3 text-xl'>
-                                <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity - 1, item.product_size)} />
-                                <div>{item.quantity}</div>
-                                <GrFormNext size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity + 1, item.product_size)} />
-                            </div>
+                            
+
                         </div>
                     ))}
                 </div>

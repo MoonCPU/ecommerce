@@ -50,24 +50,24 @@ router.post('/add_to_cart', async (req: Request, res: Response) => {
 
 router.patch('/edit_cart', async (req: Request, res: Response) => {
     try {
-        const { user_id, product_id, quantity } = req.body;
+        const { user_id, cart_id, quantity } = req.body;
 
         // Check if the user and product exist before updating the cart
         const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [user_id]);
-        const product = await pool.query('SELECT * FROM products WHERE product_id = $1', [product_id]);
+        const cartItem = await pool.query('SELECT * FROM shopping_cart WHERE cart_id = $1', [cart_id]);
 
         if (user.rows.length === 0) {
             return res.status(404).send('User not found');
         }
 
-        if (product.rows.length === 0) {
+        if (cartItem.rows.length === 0) {
             return res.status(404).send('Product not found');
         }
 
         // Update the quantity of the cart item
         const updatedCartItem = await pool.query(
-            'UPDATE shopping_cart SET quantity = $1 WHERE user_id = $2 AND product_id = $3 RETURNING *',
-            [quantity, user_id, product_id]
+            'UPDATE shopping_cart SET quantity = $1 WHERE user_id = $2 AND cart_id = $3 RETURNING *',
+            [quantity, user_id, cart_id]
         );
 
         res.json(updatedCartItem.rows[0]); // Return the updated cart item
