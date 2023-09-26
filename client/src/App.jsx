@@ -1,22 +1,22 @@
-import './App.css'
-import { BrowserRouter } from "react-router-dom";
+import './App.css';
+import { BrowserRouter } from 'react-router-dom';
 import PageRoutes from './components/PageRoutes';
-
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { AuthProvider } from './components/AuthProvider';
 
 function App() {
-
   return (
     <div>
       <BrowserRouter>
-      <Navbar />
-      <PageRoutes />    
-      <Footer />
-      </BrowserRouter>      
+        <AuthProvider>
+          <div className='h-screen'>
+            <Navbar />
+            <PageRoutes />
+          </div>
+        </AuthProvider>
+      </BrowserRouter>
     </div>
-
-  )
+  );
 }
 
 export default App

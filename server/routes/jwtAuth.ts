@@ -40,7 +40,7 @@ router.post('/register', validInfo, async (req: Request, res: Response) => {
 })
 
 //route for user login 
-router.post('/login', validInfo, async (req, res) => {
+router.post('/login', validInfo, async (req: Request, res: Response) => {
     try{
 
         // 1 - destructure the req.body
