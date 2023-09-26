@@ -94,18 +94,18 @@ function Card() {
                             <div className="max-w-[200px] box-border p-2">
                                 <img src={`/shoes/${card.product_id}.png`} alt={card.product_name} className=""/>                                
                             </div>
-                            <div className="text-lg text-center border-t-2 border-b-2 border-gray-300">
+                            <div className="pt-1 text-lg text-center border-t-2 border-black">
                                 {`R$${card.product_price}`}
                             </div>
                             <form onSubmit={(e) => handleSubmitForm(e, card.product_id, card.quantity)} className="flex flex-col">
-                                <div className="flex flex-row">
-                                    <select name="size" id="size" required className=''>
+                                <div className="flex flex-row box-border mt-1 mb-2">
+                                    <select name="size" id="size" required className='mx-auto text-xl font-semibold border-2 border-black'>
                                             <option value="S">S</option>
                                             <option value="M">M</option>
                                             <option value="L">L</option>
                                             <option value="XL">XL</option>
                                     </select>
-                                    <div className='flex flex-row justify-center item gap-4'>
+                                    <div className='flex flex-row justify-center item gap-4 mx-auto'>
                                         <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleDecreaseQuantity(card.product_id)}  />
                                         <div className="text-xl">{card.quantity}</div>
                                         <GrFormNext size={32} className='cursor-pointer' onClick={() => handleIncreaseQuantity(card.product_id)}  />

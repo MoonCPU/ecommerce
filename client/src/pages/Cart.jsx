@@ -55,7 +55,7 @@ function Cart() {
             {cartItems.length > 0 ? (
                 <div>
                     {cartItems.map((item) => (
-                        <div key={item.product_id} className='m-4 mb-6 text-left grid grid-cols-3 gap-3 sm:gap-8 sm:text-2xl sm:max-w-md sm:mx-auto drop-shadow-[0_5px_3px_rgb(0,0,0,0.4)] sm:px-5'>
+                        <div key={item.product_id} className='m-4 mb-6 text-left grid grid-cols-3 gap-3 sm:gap-8 sm:text-2xl sm:max-w-md sm:mx-auto sm:px-5'>
                             <div className='p-3 box-border border-r-2 border-black'><img src={`/shoes/${item.product_id}.png`} alt={item.product_name} /></div>
                             <div className='flex flex-col gap-2 box-border pl-2'>
                                 <div className='text-lg sm:text-2xl font-semibold'>
@@ -65,18 +65,13 @@ function Cart() {
                                     {`R$${item.total_price}`}
                                 </div>
                                 <div>
-                                    <select name="size" id="size" required className='border-2 border-black'>
-                                        <option value="s">S</option>
-                                        <option value="m">M</option>
-                                        <option value="l">L</option>
-                                        <option value="xl">XL</option>
-                                    </select>
+                                    {item.product_size}
                                 </div>
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3 text-xl'>
-                                <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity - 1)} />
+                                <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity - 1, item.product_size)} />
                                 <div>{item.quantity}</div>
-                                <GrFormNext size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity + 1)} />
+                                <GrFormNext size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.product_id, item.quantity + 1, item.product_size)} />
                             </div>
                         </div>
                     ))}

@@ -82,7 +82,7 @@ router.get('/get_cart/:user_id', async (req: Request, res: Response) => {
         const { user_id } = req.params;
 
         const cartData = await pool.query(
-            'SELECT shopping_cart.cart_id, shopping_cart.product_id, products.product_name, products.product_price, shopping_cart.quantity, ' +
+            'SELECT shopping_cart.cart_id, shopping_cart.product_id, products.product_name, products.product_price, shopping_cart.quantity, shopping_cart.product_size, ' +
             '(products.product_price * shopping_cart.quantity) AS total_price, users.user_name ' +
             'FROM shopping_cart ' +
             'INNER JOIN products ON shopping_cart.product_id = products.product_id ' +
