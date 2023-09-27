@@ -104,4 +104,23 @@ router.get('/get_cart/:user_id', async (req: Request, res: Response) => {
     }
 })
 
+router.delete('/delete_cart/:cart_id', async (req: Request, res: Response) => {
+    try {
+        const { cart_id } = req.params;
+
+        const cartItem = await pool.query('SELECT * FROM shopping_cart WHERE cart_id = $1', [cart_id]);
+
+        if (cartItem.rows.length === 0) {
+            return res.status(404).send('Cart item not found');
+        }
+
+        await pool.query('DELETE FROM shopping_cart WHERE cart_id = $1', [cart_id]);
+
+        res.json({ message: 'Cart item deleted' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 export default router;

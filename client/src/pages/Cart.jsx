@@ -5,6 +5,7 @@ import { useAuth } from '../components/AuthProvider';
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 
+
 function Cart() {
     const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
@@ -29,7 +30,16 @@ function Cart() {
     // calculate total price of product
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
-            if (newQuantity < 1) {
+            // Check if the new quantity is less than or equal to 0
+            if (newQuantity <= 0) {
+                // Call the delete route to remove the cart item
+                await axios.delete(`http://localhost:5000/cart/delete_cart/${cartId}`);
+    
+                // Filter out the deleted cart item from the cartItems array
+                setCartItems(prevCartItems =>
+                    prevCartItems.filter(item => item.cart_id !== cartId)
+                );
+    
                 return;
             }
     
