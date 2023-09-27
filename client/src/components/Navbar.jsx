@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
-import { BiSolidUser } from 'react-icons/bi';
+import { BiSolidUser, BiLogOut } from 'react-icons/bi';
 import { useState } from 'react';
+import { useAuth } from './AuthProvider';
 
 function Navbar() {
     const [nav, setNav] = useState(true);
+    const { user, handleLogout } = useAuth();
 
     const handleNav = () => {
         setNav(!nav);
@@ -23,24 +25,47 @@ function Navbar() {
                 <li className="px-2 text-2xl"><button><Link to="/">Home</Link></button></li>
                 <li className="px-2 text-2xl"><Link to="/about">About</Link></li>
                 <li className="px-2 text-2xl flex flex-row gap-4">
-                    <Link to="/login">
-                        <BiSolidUser />
-                    </Link>
-                    <Link to="/cart">
-                        <BsFillCartFill />
-                    </Link>
+                {user ? ( 
+                        <div className='flex flex-row gap-4'>
+                            <BiLogOut className="cursor-pointer" onClick={handleLogout} size={26} /> 
+                            <Link to="/cart">
+                                <BsFillCartFill size={24}/>
+                            </Link>            
+                        </div>
+                    ) : (
+                        <div className='flex flex-row gap-4'>
+                        <Link to="/login">
+                            <BiSolidUser size={26}/>
+                        </Link>
+                        <Link to="/cart">
+                            <BsFillCartFill size={24}/>
+                        </Link>                            
+                        </div>
+
+                )}
                 </li>
             </ul>
 
             <div className='flex flex-row sm:hidden'>
                 {/* mobile menu icons */}
-                <div className='flex flex-row justify-center items-center gap-3 mx-5'>
-                        <Link to="/login">
-                            <BiSolidUser size={25} />
-                        </Link>
-                        <Link to="/cart">
-                            <BsFillCartFill size={24} />
-                        </Link>                 
+                <div className='flex flex-row justify-center items-center gap-4 mx-6'>
+                    {user ? ( 
+                        <>
+                            <BiLogOut className="cursor-pointer" onClick={handleLogout} size={25} />
+                            <Link to="/cart">
+                                <BsFillCartFill size={24} />
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login">
+                                <BiSolidUser size={25} />
+                            </Link>
+                            <Link to="/cart">
+                                <BsFillCartFill size={24} />
+                            </Link>
+                        </>
+                    )}
                 </div>
                 <div onClick={handleNav} className="flex">
                     {!nav ? (
@@ -48,7 +73,7 @@ function Navbar() {
                     ) : (
                         <AiOutlineMenu className="cursor-pointer" size={30} />
                     )}
-                </div>                
+                </div>
             </div>
 
             {/* mobile menu */}
