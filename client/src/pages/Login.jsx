@@ -27,7 +27,7 @@ function Login() {
             localStorage.setItem('token', token);
             const decodedToken = jwtDecode(token);
             setUser(decodedToken.user);
-            console.log(decodedToken);
+            window.location.reload();
         } catch (error) {
             console.log(error.message);
         }
