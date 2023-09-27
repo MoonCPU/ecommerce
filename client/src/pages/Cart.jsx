@@ -5,10 +5,25 @@ import { useAuth } from '../components/AuthProvider';
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function Cart() {
     const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
+
+    const notifyDelete = () => {
+        toast.error('Item deleted', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
 
     useEffect(() => {
         if (user) {
@@ -30,12 +45,9 @@ function Cart() {
     // calculate total price of product
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
-            // Check if the new quantity is less than or equal to 0
             if (newQuantity <= 0) {
-                // Call the delete route to remove the cart item
                 await axios.delete(`http://localhost:5000/cart/delete_cart/${cartId}`);
-    
-                // Filter out the deleted cart item from the cartItems array
+                notifyDelete();
                 setCartItems(prevCartItems =>
                     prevCartItems.filter(item => item.cart_id !== cartId)
                 );
@@ -50,7 +62,7 @@ function Cart() {
                 user_id: user.user_id,
                 cart_id: cartId,
                 quantity: newQuantity,
-                total_price: newTotalPrice, // Include total_price in the request
+                total_price: newTotalPrice, 
             });
     
             setCartItems(prevCartItems =>
@@ -103,7 +115,7 @@ function Cart() {
                         ))}
                     </div>
                 ) : (
-                    <div className='text-center text-2xl my-[15%]'>
+                    <div className='hidden sm:flex text-center justify-center items-center text-2xl my-[15%]'>
                         <h1>Your cart is empty.</h1>
                     </div>
                 )}
@@ -147,12 +159,24 @@ function Cart() {
                             ))}
                         </div>
                     ) : (
-                        <div className='text-center text-2xl my-[15%]'>
+                        <div className='sm:hidden text-center justify-center items-center text-2xl my-[15%]'>
                             <h1>Your cart is empty.</h1>
                         </div>
                     )
                 }
-            </div>        
+            </div>  
+            <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />      
         </div>
 
     );

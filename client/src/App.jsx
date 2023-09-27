@@ -9,10 +9,8 @@ function App() {
     <div>
       <BrowserRouter>
         <AuthProvider>
-          <div className='h-screen'>
-            <Navbar />
-            <PageRoutes />
-          </div>
+          <Navbar  />
+          <PageRoutes />  
         </AuthProvider>
       </BrowserRouter>
     </div>

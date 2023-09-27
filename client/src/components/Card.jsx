@@ -5,9 +5,38 @@ import { useAuth } from "./AuthProvider";
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 function Card() {
     const [ProductCards, setCard] = useState([]);
     const { user } = useAuth();
+
+    const notifySuccess = () => {
+        toast.success('Added to cart!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
+    const notifyFailure = () => {
+        toast.error('Failed to add to cart!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
 
     useEffect(() => {
         fetchCartData()
@@ -76,8 +105,10 @@ function Card() {
                     size: size,
                     total_price: total_price, // Include total_price in the request
                 });
+                notifySuccess();
             } catch (error) {
-                console.log(error.message)
+                console.log(error.message);
+                notifyFailure();
             }            
         } else {
             console.log("User is not logged in.")
@@ -101,7 +132,7 @@ function Card() {
                             </div>
                             <form onSubmit={(e) => handleSubmitForm(e, card.product_id, card.quantity, card.productPrice)} className="flex flex-col">
                                 <div className="flex flex-row box-border mt-1 mb-2">
-                                    <select name="size" id="size" required className='mx-auto text-xl font-semibold border-2 border-black'>
+                                    <select name="size" id="size" required className='cursor-pointer mx-auto text-xl font-semibold border-2 border-black'>
                                             <option value="S">S</option>
                                             <option value="M">M</option>
                                             <option value="L">L</option>
@@ -113,16 +144,27 @@ function Card() {
                                         <GrFormNext size={32} className='cursor-pointer' onClick={() => handleIncreaseQuantity(card.product_id)}  />
                                     </div>                                    
                                 </div>
-                                <button className="bg-green-500 text-white text-xl font-bold">Add</button>                                    
+                                <button className="bg-green-500 hover:bg-green-700 text-white text-xl font-bold">Add</button>                                    
                             </form>
                         </div>
                     ))}
+                    <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    />
                 </div>
             ) : (
                 <div className='text-center text-2xl my-[15%]'>
                     <h1>Wow, this is so empty...</h1>
                 </div>
-
             )}
         </div>
     )
