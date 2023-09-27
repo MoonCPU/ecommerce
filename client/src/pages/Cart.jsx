@@ -29,23 +29,23 @@ function Cart() {
     // calculate total price of product
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
-
             if (newQuantity < 1) {
                 return;
             }
-
+    
             const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
             await axios.patch('http://localhost:5000/cart/edit_cart', {
                 user_id: user.user_id,
-                cart_id: cartId, 
+                cart_id: cartId,
                 quantity: newQuantity,
+                total_price: newTotalPrice, // Include total_price in the request
             });
     
             setCartItems(prevCartItems =>
                 prevCartItems.map(item =>
-                    item.cart_id === cartId 
+                    item.cart_id === cartId
                         ? { ...item, quantity: newQuantity, total_price: newTotalPrice }
                         : item
                 )
@@ -101,7 +101,7 @@ function Cart() {
 
             <div id='mobile'>
                 {cartItems.length > 0 ? (
-                        <div className='flex flex-col max-w-xs mx-auto gap-y-4 sm:hidden '>
+                        <div className='flex flex-col max-w-[340px] mx-auto gap-y-4 sm:hidden '>
                             {cartItems.map((item) => (
                                 <div key={item.cart_id} className='flex flex-col justify-around shadow-md'>
                                     <div className='flex flex-row justify-evenly'>

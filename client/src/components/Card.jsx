@@ -7,7 +7,6 @@ import { GrFormPrevious } from 'react-icons/gr';
 
 function Card() {
     const [ProductCards, setCard] = useState([]);
-
     const { user } = useAuth();
 
     useEffect(() => {
@@ -17,10 +16,11 @@ function Card() {
     const fetchCartData = async () => {
         try {
             const response = await axios.get('http://localhost:5000/products/get_all_products/');
-            // Initialize quantity for each product to 1
+            // Initialize quantity and productPrice for each product
             const productsWithQuantity = response.data.map(product => ({
                 ...product,
-                quantity: 1
+                quantity: 1,
+                productPrice: product.product_price // Initialize productPrice
             }));
             setCard(productsWithQuantity);
         } catch (error) {
@@ -58,12 +58,15 @@ function Card() {
         });
     }
 
-    const handleSubmitForm = async (e, productId, currentQuantity) => {
+    const handleSubmitForm = async (e, productId, currentQuantity, productPrice) => {
         e.preventDefault();
     
         if (user) {
             const user_id = user.user_id;
             const size = e.target.size.value;
+
+            // Calculate the total price
+            const total_price = productPrice * currentQuantity;
 
             try {
                 await axios.post('http://localhost:5000/cart/add_to_cart/', {
@@ -71,6 +74,7 @@ function Card() {
                     product_id: productId,
                     quantity: currentQuantity,
                     size: size,
+                    total_price: total_price, // Include total_price in the request
                 });
             } catch (error) {
                 console.log(error.message)
@@ -78,8 +82,6 @@ function Card() {
         } else {
             console.log("User is not logged in.")
         }
-
-
     }
 
     return (
@@ -97,7 +99,7 @@ function Card() {
                             <div className="pt-1 text-lg text-center border-t-2 border-black">
                                 {`R$${card.product_price}`}
                             </div>
-                            <form onSubmit={(e) => handleSubmitForm(e, card.product_id, card.quantity)} className="flex flex-col">
+                            <form onSubmit={(e) => handleSubmitForm(e, card.product_id, card.quantity, card.productPrice)} className="flex flex-col">
                                 <div className="flex flex-row box-border mt-1 mb-2">
                                     <select name="size" id="size" required className='mx-auto text-xl font-semibold border-2 border-black'>
                                             <option value="S">S</option>
