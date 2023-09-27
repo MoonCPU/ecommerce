@@ -14,7 +14,7 @@ function Navbar() {
     };
 
     return (
-        <div className='max-w-2xl flex flex-row items-center justify-between sm:justify-around mx-auto p-5'>
+        <div className='max-w-2xl flex flex-row items-center justify-between box-border px-6 sm:justify-around mx-auto pt-5 pb-10'>
             {/* desktop menu*/}
             <div className="text-5xl sm:text-6xl flex flex-row items-center justify-center">
                 <Link to="/">
@@ -41,13 +41,12 @@ function Navbar() {
                             <BsFillCartFill size={24}/>
                         </Link>                            
                         </div>
-
                 )}
                 </li>
             </ul>
 
-            <div className='flex flex-row sm:hidden'>
-                {/* mobile menu icons */}
+            {/* mobile menu icons */}
+            <div className='flex flex-row items-center justify-center sm:hidden'>
                 <div className='flex flex-row justify-center items-center gap-4 mx-6'>
                     {user ? ( 
                         <>
