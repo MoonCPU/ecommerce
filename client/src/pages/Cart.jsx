@@ -15,13 +15,13 @@ function Cart() {
     const notifyDelete = () => {
         toast.error('Item deleted', {
             position: "top-right",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
         });
     }
 

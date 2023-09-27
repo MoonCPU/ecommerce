@@ -9,8 +9,10 @@ function App() {
     <div>
       <BrowserRouter>
         <AuthProvider>
-          <Navbar  />
-          <PageRoutes />  
+          <Navbar />
+          <div className='sm:mt-10 lg:mt-18'>
+            <PageRoutes />              
+          </div>
         </AuthProvider>
       </BrowserRouter>
     </div>

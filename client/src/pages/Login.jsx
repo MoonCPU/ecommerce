@@ -6,7 +6,7 @@ import { useAuth } from '../components/AuthProvider';
 function Login() {
     const [user, setUser] = useState(null);
     const { handleLogout } = useAuth();
-    
+
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -28,8 +28,9 @@ function Login() {
             const decodedToken = jwtDecode(token);
             setUser(decodedToken.user);
             window.location.reload();
-        } catch (error) {
+        } catch (error) {         
             console.log(error.message);
+
         }
     }
 

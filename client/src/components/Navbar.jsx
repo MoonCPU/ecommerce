@@ -14,11 +14,11 @@ function Navbar() {
     };
 
     return (
-        <div className='max-w-2xl flex flex-row items-center justify-between box-border px-6 sm:justify-around mx-auto pt-5 pb-14'>
+        <div className='max-w-full flex flex-row items-center justify-around box-border px-6 sm:justify-around mx-auto p-6 mb-14 shadow-md'>
             {/* desktop menu*/}
             <div className="text-5xl sm:text-6xl flex flex-row items-center justify-center">
                 <Link to="/">
-                    <img src="/logo.png" alt="logo" className="h-12 sm:h-20" />
+                    <img src="/logo.png" alt="logo" className="h-11 sm:h-20" />
                 </Link>
             </div>
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">
@@ -86,7 +86,6 @@ function Navbar() {
                     <li className="p-2 text-2xl border-b border-gray-300" onClick={handleNav}><Link to="/about">About</Link></li>
                 </ul>
             </div>
-
         </div>
     )
 }

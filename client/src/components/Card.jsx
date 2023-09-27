@@ -15,26 +15,39 @@ function Card() {
     const notifySuccess = () => {
         toast.success('Added to cart!', {
             position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
+            autoClose: 500,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
         });
     }
 
     const notifyFailure = () => {
         toast.error('Failed to add to cart!', {
             position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
+            autoClose: 500,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
+        });
+    }
+
+    const notifyNotLoggedIn = () => {
+        toast.warn('User is not logged in!', {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
         });
     }
 
@@ -111,7 +124,7 @@ function Card() {
                 notifyFailure();
             }            
         } else {
-            console.log("User is not logged in.")
+            notifyNotLoggedIn();
         }
     }
 
