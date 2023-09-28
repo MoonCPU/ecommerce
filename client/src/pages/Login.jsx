@@ -1,11 +1,11 @@
-import  { useState, useEffect } from 'react';
+import  { useEffect, useContext } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'; // Import jwtDecode
-import { useAuth } from '../components/AuthProvider';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../components/AuthProvider';
 
 function Login() {
-    const [user, setUser] = useState(null);
-    const { handleLogout } = useAuth();
+    const { user, setUser } = useContext(AuthContext);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -14,7 +14,7 @@ function Login() {
             const decodedToken = jwtDecode(token);
             setUser(decodedToken.user);
         }
-    }, [])
+    }, [setUser])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,23 +27,17 @@ function Login() {
             localStorage.setItem('token', token);
             const decodedToken = jwtDecode(token);
             setUser(decodedToken.user);
-            window.location.reload();
         } catch (error) {         
             console.log(error.message);
-
         }
-    }
-
-    const handleLogoutClick = () => {
-        handleLogout();
     }
 
     return (
         <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-center">
             {user ? (
-                <div>
-                    <h1>Hello, {user.user_id}</h1>    
-                    <button onClick={handleLogoutClick}>Log out</button>
+                <div className='flex flex-col items-center justify-center box-border p-2 text-lg sm:text-2xl text-center'>
+                    <h1>Welcome back!</h1>
+                    <h1>Directing you to home page...</h1>    
                 </div>
             ): (
                 <form onSubmit={handleSubmit} className='mx-2 md:m-0 w-full p-5 sm:p-10 flex flex-col border-black shadow-lg dark:shadow-black/30'>
@@ -60,8 +54,12 @@ function Login() {
                             <input type="password" name='password' required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="****" /> 
                         </div>
                     </div>
-                    <div className='mt-2 flex items-center justify-center'>
-                        <button type="submit" className="mt-4 rounded-md bg-blue-500 text-white w-full p-2">Sign in</button>
+                    <div className='flex items-center justify-center'>
+                        <button type="submit" className="mt-4 rounded-md bg-blue-500 hover:bg-blue-600 text-white w-full p-2 font-semibold">Login</button>
+                    </div>
+                    <div className='mt-2 text-sm sm:text-base'>
+                        <h2>Register new account <Link to="/register" className='font-medium text-gray-900 underline hover:text-green-700'>here</Link>
+                        </h2>
                     </div>
                 </form>
             )}
