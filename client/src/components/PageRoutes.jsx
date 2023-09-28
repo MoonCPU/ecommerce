@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Register from "../pages/Register";
 import Cart from "../pages/Cart";
 import About from "../pages/About";
+import Account from "../pages/Account";
 
 const PageRoutes = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const PageRoutes = () => {
                 <Route path="register" element={<Register />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="about" element={<About />} />
+                <Route path="account" element={<Account />} />
         </Routes>
     )
 }

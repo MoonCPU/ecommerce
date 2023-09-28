@@ -84,10 +84,10 @@ function Login() {
                     </div>
                 </div>
                 <div className='flex items-center justify-center'>
-                    <button type="submit" className="mt-4 rounded-md bg-blue-500 hover:bg-blue-600 text-white w-full p-2 font-semibold">Login</button>
+                    <button type="submit" className="mt-4 rounded-md bg-blue-500 transition duration-500 hover:bg-blue-600 text-white w-full p-2 font-semibold">Login</button>
                 </div>
                 <div className='mt-2 text-sm sm:text-base'>
-                    <h2>Register new account <Link to="/register" className='font-medium text-gray-900 underline hover:text-green-700'>here</Link>
+                    <h2>Register new account <Link to="/register" className='font-medium text-gray-900 underline transition duration-400 hover:text-green-700'>here</Link>
                     </h2>
                 </div>
                 <ToastContainer

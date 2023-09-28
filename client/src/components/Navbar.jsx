@@ -18,7 +18,7 @@ function Navbar() {
             {/* desktop menu*/}
             <div className="text-5xl sm:text-6xl flex flex-row items-center justify-center">
                 <Link to="/">
-                    <img src="/logo.png" alt="logo" className="h-12 sm:h-20" />
+                    <img src="/logo.png" alt="logo" className="h-10 sm:h-20" />
                 </Link>
             </div>
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">

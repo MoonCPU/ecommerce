@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Navbar />
-          <div className='sm:mt-10 lg:mt-18'>
+          <div className='sm:mt-10 lg:mt-20'>
             <PageRoutes />              
           </div>
         </AuthProvider>
