@@ -24,22 +24,27 @@ function Navbar() {
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">
                 <li className="px-2 text-2xl"><button><Link to="/">Home</Link></button></li>
                 <li className="px-2 text-2xl"><Link to="/about">About</Link></li>
-                <li className="px-2 text-2xl"><Link to="/account">Account</Link></li>
                 <li className="px-2 text-2xl flex flex-row gap-4">
                 {user ? ( 
-                        <div className='flex flex-row gap-4'>
-                            <BiLogOut className="cursor-pointer" onClick={handleLogout} size={26} /> 
+                        <div className='flex flex-row gap-6'>
+                            <div className='flex flex-row items-center justify-center'>
+                                <Link to="/account">
+                                    <BiSolidUser size={26} className='hover:text-orange-600'/>
+                                </Link>
+                                <div className="h-full my-auto mx-1 min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
+                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={26} />                                 
+                            </div>
                             <Link to="/cart">
-                                <BsFillCartFill size={24}/>
+                                <BsFillCartFill size={24} className='hover:text-orange-600'/>
                             </Link>            
                         </div>
                     ) : (
                         <div className='flex flex-row gap-4'>
                         <Link to="/login">
-                            <BiSolidUser size={26}/>
+                            <BiSolidUser size={26} className='hover:text-orange-600'/>
                         </Link>
                         <Link to="/cart">
-                            <BsFillCartFill size={24}/>
+                            <BsFillCartFill size={24} className='hover:text-orange-600'/>
                         </Link>                            
                         </div>
                 )}
@@ -48,10 +53,16 @@ function Navbar() {
 
             {/* mobile menu icons */}
             <div className='flex flex-row items-center justify-center sm:hidden'>
-                <div className='flex flex-row justify-center items-center gap-4 mx-6'>
+                <div className='flex flex-row justify-center items-center gap-4 mx-4'>
                     {user ? ( 
                         <>
-                            <BiLogOut className="cursor-pointer" onClick={handleLogout} size={25} />
+                            <div className='flex flex-row items-center justify-center'>
+                                <Link to="/account">
+                                        <BiSolidUser size={24} className='hover:text-orange-600'/>
+                                </Link>
+                                <div className="h-full my-auto mx-1 min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
+                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={24} />                                
+                            </div>
                             <Link to="/cart">
                                 <BsFillCartFill size={24} />
                             </Link>
@@ -84,7 +95,9 @@ function Navbar() {
                         <img src="/logo.png" alt="logo" className="h-14 sm:h-20" />
                     </Link>
                     <li className="p-2 text-2xl border-b border-gray-300 mt-10" onClick={handleNav}><Link to="/">Home</Link></li>
-                    <li className="p-2 text-2xl border-b border-gray-300" onClick={handleNav}><Link to="/about">About</Link></li>                    <li className="p-2 text-2xl border-b border-gray-300" onClick={handleNav}><Link to="/account">Account</Link></li>
+                    <li className="p-2 text-2xl border-b border-gray-300" onClick={handleNav}>
+                        <Link to="/about">About</Link>
+                    </li>                    
                 </ul>
             </div>
         </div>
