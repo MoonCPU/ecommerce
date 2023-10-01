@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
       const decodedToken = jwtDecode(token);
       const user = decodedToken.user;
       setUser(user);
+      console.log(user);
 
       // Assuming your user object has an addresses field
       setAddresses(user.addresses || []);
