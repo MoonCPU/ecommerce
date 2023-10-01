@@ -49,4 +49,5 @@ router.get('/get_addresses/:user_id', async (req: Request, res: Response) => {
     }
 });
 
+
 export default router;

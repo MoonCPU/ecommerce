@@ -123,4 +123,24 @@ router.delete('/delete_cart/:cart_id', async (req: Request, res: Response) => {
     }
 });
 
+router.post('/add_cart_address/:user_id', async (req: Request, res: Response) => {
+    try {
+      const { user_id } = req.params;
+      const { address_id } = req.body;
+  
+      console.log('Received user_id:', user_id);
+      console.log('Received address_id:', address_id);
+  
+      await pool.query(
+        'UPDATE shopping_cart SET address_id = $1 WHERE user_id = $2',
+        [address_id, user_id]
+      );
+  
+      res.json({ message: 'Address added to the user\'s cart successfully' });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 export default router;

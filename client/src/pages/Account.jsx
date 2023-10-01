@@ -2,7 +2,9 @@
 
 function Account() {
     return (
-        <div>Account</div>
+        <div className="flex justify-center items-center">
+            Account
+        </div>
     )
 }
 

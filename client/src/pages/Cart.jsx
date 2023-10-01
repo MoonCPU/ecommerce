@@ -5,13 +5,11 @@ import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import {useNavigate} from 'react-router-dom';
 
 function Cart() {
-    const { user } = useAuth();
+    const { user, selectedAddress, setSelectedAddress } = useAuth();
     const [cartItems, setCartItems] = useState([]);
     const [cartAddress, setCartAddress] = useState([]);
-    const navigate = useNavigate()
 
     const notifyDelete = () => {
         toast.error('Item deleted', {
@@ -91,18 +89,24 @@ function Cart() {
         }
     };
 
-    const handleFinishPurchase = () => {
-        navigate("/");
-    }
+    const handleFinishPurchase = async () => {
+        try {
+
+      
+          console.log("Cart items updated successfully.");
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
     return (
         <div>
             <div id='desktop'>
                 {cartItems.length > 0 ? (
-                    <div className='flex flex-row'>
-                        <div id='cart-item' className='hidden sm:flex flex-col sm:max-w-xl md:max-w-2xl mx-auto gap-y-4'>
+                    <div className='flex flex-row justify-center mx-2'>
+                        <div id='cart-item' className='hidden sm:flex flex-col sm:max-w-xl md:max-w-2xl gap-y-4 box-border'>
                             {cartItems.map((item) => (
-                                <div key={item.cart_id} className='flex flex-row justify-around shadow-md'>
+                                <div key={item.cart_id} className='flex flex-row justify-around shadow-md border-2 border-gray-200 p-1'>
                                     <div id='cart-name' className='max-w-[150px] flex-1'>
                                         <div className='text-xl font-bold ml-2'>
                                             {item.product_name}    
@@ -125,42 +129,53 @@ function Cart() {
                                         <div>
                                             {item.quantity} X {`R$${item.product_price}`} 
                                         </div>
-                                        <div className="h-[100px] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20 dark:opacity-100"></div>
+                                        <div className="h-[100px] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
                                         <div className='text-xl font-bold text-orange-600'>
                                             {`R$${item.total_price}`}      
                                         </div>
                                     </div> 
                                 </div>
                             ))}
-                            <div onClick={handleFinishPurchase} className='flex items-center justify-center'>
+                            <div onClick={() => handleFinishPurchase()} className='flex items-center justify-center'>
                                 <button className='mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
                                     Finish Purchase
                                 </button>
                             </div>
                         </div>  
-                        <div id='cart-address'>
+
+                        <div id='cart-address' className='max-w-2xl gap-y-4 box-border flex flex-row'>
+                            <div className="mx-6 hidden md:flex h-full my-auto min-h-[1em] w-px self-stretch bg-black"></div>
+                            <div>
                             {cartAddress.length > 0 ? (
-                                <div>
+                                <div className='flex flex-col gap-y-4'>
                                     {cartAddress.map((item) => (
-                                        <div key={item.address_id}>
-                                            <h1>{item.street}</h1>
-                                        </div>
+                                        <form key={item.address_id} className='hidden md:flex flex-col shadow-md border-2 border-gray-200'>
+                                            <div className='flex flex-row gap-x-4 box-border p-4' onClick={() => setSelectedAddress(item.address_id)}>
+                                                <input
+                                                type="radio"
+                                                name="address"
+                                                className='cursor-pointer'
+                                                value={item.address_id}
+                                                checked={selectedAddress === item.address_id}
+                                                readOnly
+                                                />
+                                                <div className='flex flex-col gap-y-4'>
+                                                <h1 className='uppercase text-lg font-semibold'>{item.street}</h1>  
+                                                <h1>{item.number}, {item.complement} </h1>  
+                                                <h1>CEP {item.cep} - {item.city}, {item.state}</h1>
+                                                </div>
+                                            </div>
+                                        </form>
                                     ))}
                                 </div>
                             ): (
                                 <div>
-                                    <h1>You don&apos;t have any address</h1>
-                                    <form>
-                                        <label>
-                                            <input type="radio" name="address" />
-                                            <h1>Address 1</h1>
-                                        </label>
-                                    </form>                                   
+                                    <h1>You don&apos;t have any address</h1>                                  
                                 </div>
-                            )} 
-                        </div>                  
+                            )}                                 
+                            </div>
+                        </div>                                 
                     </div>
-
                 ) : (
                     <div className='hidden sm:flex text-center justify-center items-center text-2xl my-[15%]'>
                         <h1>Your cart is empty.</h1>
@@ -170,9 +185,9 @@ function Cart() {
 
             <div id='mobile'>
                 {cartItems.length > 0 ? (
-                        <div className='flex flex-col max-w-xs mx-auto gap-y-4 sm:hidden'>
+                        <div className='flex flex-col max-w-sm mx-auto gap-y-5 sm:hidden'>
                             {cartItems.map((item) => (
-                                <div key={item.cart_id} className='flex flex-col justify-around shadow-md mx-2'>
+                                <div key={item.cart_id} className='flex flex-col justify-around shadow-md mx-3 border-2 border-gray-200'>
                                     <div className='flex flex-row justify-evenly'>
                                         <div className='max-w-[100px]'>
                                             <img className='box-border p-2' src={`/shoes/${item.product_id}.png`} alt={item.product_name} />                                            
