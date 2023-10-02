@@ -59,7 +59,7 @@ function Login() {
             setUser(decodedToken.user);
             notifyLoginSuccess();
             setTimeout(() => {
-                return navigate("/");
+                return navigate("/account");
             }, 2000);
         } catch (error) {         
             console.log(error.message);

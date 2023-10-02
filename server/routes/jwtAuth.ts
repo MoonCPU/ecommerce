@@ -29,7 +29,7 @@ router.post('/register', validInfo, async (req: Request, res: Response) => {
         const newUser = await pool.query('INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *', [name, email, bcryptPassword])
 
         // 5 - generating jwt token
-        const token = jwtGenerator(newUser.rows[0].user_id, newUser.rows[0].user_name);
+        const token = jwtGenerator(newUser.rows[0].user_id, newUser.rows[0].user_name, newUser.rows[0].user_email);
         res.json({token});
 
     }
@@ -63,7 +63,7 @@ router.post('/login', validInfo, async (req: Request, res: Response) => {
         } 
 
         //4 - if passwords match, give them the jwt token
-        const token = jwtGenerator(user.rows[0].user_id, user.rows[0].user_name);
+        const token = jwtGenerator(user.rows[0].user_id, user.rows[0].user_name, user.rows[0].user_email);
         res.json({token});
 
     }
