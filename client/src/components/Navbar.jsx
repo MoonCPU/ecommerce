@@ -18,7 +18,7 @@ function Navbar() {
             {/* desktop menu*/}
             <div className="text-5xl sm:text-6xl flex flex-row items-center justify-center">
                 <Link to="/">
-                    <img src="/logo.png" alt="logo" className="h-10 sm:h-20" />
+                    <img src="/logo.png" alt="logo" className="h-8 sm:h-20" />
                 </Link>
             </div>
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">
@@ -58,13 +58,13 @@ function Navbar() {
                         <>
                             <div className='flex flex-row items-center justify-center'>
                                 <Link to="/account">
-                                        <BiSolidUser size={24} className='hover:text-orange-600'/>
+                                        <BiSolidUser size={22} className='hover:text-orange-600'/>
                                 </Link>
                                 <div className="h-full my-auto mx-1 min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
-                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={24} />                                
+                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={22} />                                
                             </div>
                             <Link to="/cart">
-                                <BsFillCartFill size={24} />
+                                <BsFillCartFill size={22} />
                             </Link>
                         </>
                     ) : (
@@ -80,9 +80,9 @@ function Navbar() {
                 </div>
                 <div onClick={handleNav} className="flex">
                     {!nav ? (
-                        <AiOutlineClose className="cursor-pointer" size={30} />
+                        <AiOutlineClose className="cursor-pointer" size={26} />
                     ) : (
-                        <AiOutlineMenu className="cursor-pointer" size={30} />
+                        <AiOutlineMenu className="cursor-pointer" size={26} />
                     )}
                 </div>
             </div>

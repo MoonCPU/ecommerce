@@ -44,6 +44,19 @@ function Cart() {
         });
     }
 
+    const notifySuccessCep = () => {
+        toast.success('CEP found!', {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
     const notifySuccess = () => {
         toast.success('Finished!', {
             position: "top-right",
@@ -149,6 +162,7 @@ function Cart() {
             setNeighborhood(response.data.neighborhood);
             setCity(response.data.city);
             setState(response.data.state);
+            notifySuccessCep();
         } catch (error) {
             console.log('Not valid CEP.');
             notifyFailedCep();
@@ -157,56 +171,59 @@ function Cart() {
 
     const debouncedHandleCep = _.debounce((cep) => {
         handleCep(cep);
-    }, 1000);
+    }, 800);
 
     return (
         <div>
-            <div id='desktop'>
+            <div id='desktop' className='flex items-center justify-center'>
                 {cartItems.length > 0 ? (
-                    <div className='flex flex-row justify-center mx-2'>
-                        <div id='cart-item' className='hidden sm:flex flex-col sm:max-w-xl md:max-w-2xl gap-y-4 box-border'>
+                    <div className='flex flex-col md:flex-row items-center md:items-start justify-center gap-6'>
+                        <div id='cart'>
                             {cartItems.map((item) => (
-                                <div key={item.cart_id} className='flex flex-row justify-around shadow-md border-2 border-gray-200 p-1'>
-                                    <div id='cart-name' className='max-w-[150px] flex-1'>
-                                        <div className='text-xl font-bold ml-2'>
-                                            {item.product_name}    
+                                <div key={item.cart_id} className='border-2 border-black flex flex-col sm:flex-row p-2 box-border sm:gap-x-4 mb-3 max-w-md'>
+                                    <div className='flex flex-col sm:flex-row'>
+                                        <div id='cart-image' className='flex flex-[1.5] flex-col sm:items-start items-center justify-center'>
+                                            <div id='cart-name' className="text-xl text-center font-bold">
+                                                {item.product_name}
+                                            </div>                            
+                                            <div className="max-w-[100px] lg:max-w-[120px] box-border p-2">
+                                                <img src={`/shoes/${item.product_id}.png`} alt={item.product_name} className=""/>                                
+                                            </div>                                              
                                         </div>
-                                        <img className='box-border p-3' src={`/shoes/${item.product_id}.png`} alt={item.product_name} />
-                                    </div>
 
-                                    <div id='cart-quantity' className='flex flex-1 flex-col items-center justify-center gap-y-4'>
-                                        <div className='flex-2 flex flex-row gap-4 items-center justify-center'>
-                                            <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity - 1)} /> 
-                                            <div className='text-2xl'>{item.quantity}</div>
-                                            <GrFormNext size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity + 1)} /> 
+                                        <div id='cart-quantity' className='flex flex-1 flex-col justify-center items-center'>
+                                            <div className='flex flex-row gap-4'>
+                                                <GrFormPrevious size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity - 1)} /> 
+                                                <div className='text-2xl'>{item.quantity}</div>
+                                                <GrFormNext size={32} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity + 1)} /> 
+                                            </div>      
+                                            <div className='text-xl font-semibold border-2 border-black box-border px-3 m-2'>
+                                                {item.product_size}                                         
+                                            </div>
                                         </div>      
-                                        <div className='text-xl font-semibold box-border border-2 border-black px-4'>
-                                            {item.product_size}                                         
-                                        </div>
-                                    </div>
 
-                                    <div id='cart-price' className='flex flex-1 items-center justify-center text-lg gap-4 box-border px-4'>
-                                        <div>
-                                            {item.quantity} X {`R$${item.product_price}`} 
-                                        </div>
-                                        <div className="h-[100px] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
-                                        <div className='text-xl font-bold text-orange-600'>
-                                            {`R$${item.total_price}`}      
-                                        </div>
-                                    </div> 
+                                        <div id='cart-price' className='flex flex-[2] flex-row gap-2 items-center justify-center ml-2'>
+                                            <div>
+                                                {item.quantity} X {`R$${item.product_price}`} 
+                                            </div>
+                                            <div className="flex h-full sm:h-[25%] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-40"></div>
+                                            <div className='text-lg sm:text-xl font-bold text-orange-600'>
+                                                {`R$${item.total_price}`}      
+                                            </div>
+                                        </div>                                         
+                                    </div>
                                 </div>
                             ))}
-                        </div>  
+                        </div>
 
-                        <div id='cart-address' className='hidden md:flex md:flex-row'>
-                            <div className="mx-6 flex h-full my-auto min-h-[1em] w-px self-stretch bg-black"></div>
+                        <div id='address' className='flex flex-row box-border'>
                             <form 
                             onSubmit={(e) => {
                                 e.preventDefault(); 
                                 handleFinishPurchase();
                             }}
-                            className='flex flex-col shadow-lg dark:shadow-black/30 box-border p-5 gap-y-2 text-lg max-w-xs'>
-                                <h1 className='text-2xl font-medium text-orange-500'>Address</h1>
+                            className='flex flex-col shadow-lg dark:shadow-black/30 box-border p-4 sm:p-5 gap-y-2 max-w-xs text-sm sm:text-lg mx-2'>
+                                <h1 className='text-xl sm:text-2xl font-medium text-orange-500'>Address</h1>
                                 <section className='flex gap-3'>
                                     <label>CEP:</label>
                                     <input
@@ -297,55 +314,7 @@ function Cart() {
                 )}
             </div>    
 
-            <div id='mobile'>
-                {cartItems.length > 0 ? (
-                        <div className='flex flex-col max-w-sm mx-auto gap-y-5 sm:hidden'>
-                            {cartItems.map((item) => (
-                                <div key={item.cart_id} className='flex flex-col justify-around shadow-md mx-3 border-2 border-gray-200'>
-                                    <div className='flex flex-row justify-evenly'>
-                                        <div className='max-w-[100px]'>
-                                            <img className='box-border p-2' src={`/shoes/${item.product_id}.png`} alt={item.product_name} />                                            
-                                        </div>
-                                        <div className='flex flex-col justify-around items-center'>
-                                            <div className='text-lg font-bold'>
-                                                {item.product_name}    
-                                            </div>
-                                            <div className='flex-2 flex flex-row gap-4 items-center justify-center p-1'>
-                                                <GrFormPrevious size={24} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity - 1)} /> 
-                                                <div className='text-lg'>{item.quantity}</div>
-                                                <GrFormNext size={24} className='cursor-pointer' onClick={() => handleQuantityChange(item.cart_id, item.quantity + 1)} /> 
-                                            </div>    
-                                            <div className='text-md font-semibold box-border border-2 border-black px-3'>
-                                                {item.product_size}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div id='cart-price' className='flex flex-1 items-center justify-center text-md gap-4 box-border px-4'>
-                                            <div>
-                                                {item.quantity} X {`R$${item.product_price}`} 
-                                            </div>
-                                            <div className="h-[40px] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20 dark:opacity-100"></div>
-                                            <div className='text-lg font-bold text-orange-600'>
-                                                {`R$${item.total_price}`}      
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                            ))}
-                            <div className='flex items-center justify-center mx-4'>
-                                <button className='mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
-                                    Finish Purchase
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className='sm:hidden text-center justify-center items-center text-2xl my-[15%]'>
-                            <h1>Your cart is empty.</h1>
-                        </div>
-                    )
-                }
-            </div>  
+           
             <ToastContainer
             position="top-right"
             autoClose={5000}
