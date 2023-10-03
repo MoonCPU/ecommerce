@@ -22,8 +22,8 @@ function Navbar() {
                 </Link>
             </div>
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">
-                <li className="px-2 text-2xl"><button><Link to="/">Home</Link></button></li>
-                <li className="px-2 text-2xl"><Link to="/about">About</Link></li>
+                <li className="px-2 text-2xl hover:text-orange-600"><button><Link to="/">Home</Link></button></li>
+                <li className="px-2 text-2xl hover:text-orange-600"><Link to="/about">About</Link></li>
                 <li className="px-2 text-2xl flex flex-row gap-4">
                 {user ? ( 
                         <div className='flex flex-row gap-6'>
@@ -94,8 +94,8 @@ function Navbar() {
                     <Link to="/">
                         <img src="/logo.png" alt="logo" className="h-14 sm:h-20" />
                     </Link>
-                    <li className="p-2 text-2xl border-b border-gray-300 mt-10" onClick={handleNav}><Link to="/">Home</Link></li>
-                    <li className="p-2 text-2xl border-b border-gray-300" onClick={handleNav}>
+                    <li className="p-2 text-2xl border-b border-gray-300 mt-10 hover:text-orange-600" onClick={handleNav}><Link to="/">Home</Link></li>
+                    <li className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
                         <Link to="/about">About</Link>
                     </li>                    
                 </ul>

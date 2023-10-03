@@ -10,10 +10,13 @@ import _ from 'lodash';
 function Cart() {
     const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
+    const [cep, setCep] = useState('');
     const [street, setStreet] = useState('');
     const [neighborhood, setNeighborhood] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
+    const [number, setNumber] = useState('');
+    const [complement, setComplement] = useState('');
 
     const notifyDelete = () => {
         toast.error('Item deleted', {
@@ -22,6 +25,32 @@ function Cart() {
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
+    const notifyFailedCep = () => {
+        toast.error('CEP is not valid!', {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
+    const notifySuccess = () => {
+        toast.success('Finished!', {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "dark",
@@ -85,23 +114,44 @@ function Cart() {
 
     const handleFinishPurchase = async () => {
         try {
-
-      
-          console.log("Cart items updated successfully.");
+            const addressData = {
+                cep,
+                street,
+                neighborhood,
+                city,
+                state,
+                number,
+                complement,
+            };
+    
+            const response = await axios.post(`http://localhost:5000/cart/add_cart_address/${user.user_id}`, addressData);
+            notifySuccess();
+    
+            console.log(response.data.message); 
+            setCartItems([]);
+            setCep('');
+            setStreet('');
+            setNeighborhood('');
+            setCity('');
+            setState('');
+            setNumber('');
+            setComplement('');
         } catch (error) {
-          console.log(error.message);
+            console.error(error.message);
         }
     };
 
     const handleCep = async (cep) => {
         try{
             const response = await axios.get(`https://brasilapi.com.br/api/cep/v1/${cep}`);
-            console.log(response.data);
+            setCep(response.data.cep);
             setStreet(response.data.street);
             setNeighborhood(response.data.neighborhood);
             setCity(response.data.city);
+            setState(response.data.state);
         } catch (error) {
-            console.log('Not valid CEP.')
+            console.log('Not valid CEP.');
+            notifyFailedCep();
         }
     }
 
@@ -146,18 +196,18 @@ function Cart() {
                                     </div> 
                                 </div>
                             ))}
-                            <div onClick={() => handleFinishPurchase()} className='flex items-center justify-center'>
-                                <button className='mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
-                                    Finish Purchase
-                                </button>
-                            </div>
                         </div>  
 
-                        <div id='cart-address' className='hidden md:flex flex-row max-w-sm box-border'>
-                            <div className="mx-4 flex h-full my-auto min-h-[1em] w-px self-stretch bg-black"></div>
-                            <form className='flex flex-col shadow-lg dark:shadow-black/30 box-border p-5 gap-y-4 text-lg'>
-                                <h1 className='text-xl'>Address</h1>
-                                <section className='flex flex-row gap-3'>
+                        <div id='cart-address' className='hidden md:flex md:flex-row'>
+                            <div className="mx-6 flex h-full my-auto min-h-[1em] w-px self-stretch bg-black"></div>
+                            <form 
+                            onSubmit={(e) => {
+                                e.preventDefault(); 
+                                handleFinishPurchase();
+                            }}
+                            className='flex flex-col shadow-lg dark:shadow-black/30 box-border p-5 gap-y-2 text-lg max-w-xs'>
+                                <h1 className='text-2xl font-medium text-orange-500'>Address</h1>
+                                <section className='flex gap-3'>
                                     <label>CEP:</label>
                                     <input
                                         type="text"  
@@ -165,7 +215,7 @@ function Cart() {
                                         onChange={(e) => debouncedHandleCep(e.target.value)} 
                                         required
                                         placeholder='00000-000'
-                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 max-w-[50%]'
+                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-[50%]'
                                     />
                                 </section>
                                 <section className='flex flex-col gap-y-1'>
@@ -177,7 +227,29 @@ function Cart() {
                                     value={street}
                                     onChange={(e) => setStreet(e.target.value)}
                                     className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2' />
-                                </section>             
+                                </section>      
+                                <section className='flex flex-row gap-y-2 gap-x-2'>
+                                    <div className='flex-1'>
+                                        <label>Number:</label>
+                                        <input 
+                                        type="text" 
+                                        name='number' 
+                                        required 
+                                        value={number}
+                                        onChange={(e) => setNumber(e.target.value)}
+                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
+                                    </div>
+                                    <div className='flex-[2]'>
+                                        <label>Complement:</label>
+                                        <input 
+                                        type="text" 
+                                        name='complement' 
+                                        value={complement}
+                                        placeholder='(optional)'
+                                        onChange={(e) => setComplement(e.target.value)}
+                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
+                                    </div>                                     
+                                </section>        
                                 <section className='flex flex-col gap-y-1'>
                                     <label>Neighborhood:</label>
                                     <input 
@@ -188,8 +260,8 @@ function Cart() {
                                     onChange={(e) => setStreet(e.target.value)}
                                     className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2' />
                                 </section>                    
-                                <section className='flex flex-row gap-y-1 gap-x-2'>
-                                    <div className=''>
+                                <section className='flex flex-row gap-y-2 gap-x-2'>
+                                    <div className='flex-[2]'>
                                         <label>City:</label>
                                         <input 
                                         type="text" 
@@ -197,9 +269,9 @@ function Cart() {
                                         required 
                                         value={city}
                                         onChange={(e) => setCity(e.target.value)}
-                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2' />                                            
+                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
                                     </div>
-                                    <div className=''>
+                                    <div className='flex-1'>
                                         <label>State:</label>
                                         <input 
                                         type="text" 
@@ -207,9 +279,14 @@ function Cart() {
                                         required 
                                         value={state}
                                         onChange={(e) => setState(e.target.value)}
-                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2' />                                            
+                                        className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
                                     </div>                                     
-                                </section>  
+                                </section> 
+                                <button 
+                                type='submit'
+                                className='flex items-center justify-center mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
+                                    Finish Purchase
+                                </button>
                             </form>
                         </div>                                 
                     </div>
@@ -256,7 +333,7 @@ function Cart() {
                                     </div>
                                 </div>
                             ))}
-                            <div onClick={handleFinishPurchase} className='flex items-center justify-center mx-4'>
+                            <div className='flex items-center justify-center mx-4'>
                                 <button className='mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
                                     Finish Purchase
                                 </button>

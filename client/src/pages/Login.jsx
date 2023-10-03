@@ -1,6 +1,6 @@
 import  { useEffect, useContext } from 'react';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode'; // Import jwtDecode
+import jwtDecode from 'jwt-decode'; 
 import { Link, useNavigate  } from 'react-router-dom';
 import { AuthContext } from '../components/AuthProvider';
 
@@ -60,7 +60,7 @@ function Login() {
             notifyLoginSuccess();
             setTimeout(() => {
                 return navigate("/account");
-            }, 2000);
+            }, 1500);
         } catch (error) {         
             console.log(error.message);
             notifyLoginFail();
