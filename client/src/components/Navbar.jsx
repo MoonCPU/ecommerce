@@ -31,7 +31,7 @@ function Navbar() {
                                 <Link to="/account">
                                     <BiSolidUser size={26} className='hover:text-orange-600'/>
                                 </Link>
-                                <div className="h-full my-auto mx-1 min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
+                                <h1 className='font-bold text-xl mx-2 flex items-center justify-center'>/</h1>
                                 <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={26} />                                 
                             </div>
                             <Link to="/cart">
@@ -60,20 +60,14 @@ function Navbar() {
                                 <Link to="/account">
                                         <BiSolidUser size={22} className='hover:text-orange-600'/>
                                 </Link>
-                                <div className="h-full my-auto mx-1 min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-20"></div>
+                                <h1 className='font-bold mx-1'>/</h1>
                                 <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={22} />                                
                             </div>
-                            <Link to="/cart">
-                                <BsFillCartFill size={22} />
-                            </Link>
                         </>
                     ) : (
                         <>
                             <Link to="/login">
                                 <BiSolidUser size={25} />
-                            </Link>
-                            <Link to="/cart">
-                                <BsFillCartFill size={24} />
                             </Link>
                         </>
                     )}
@@ -94,10 +88,22 @@ function Navbar() {
                     <Link to="/">
                         <img src="/logo.png" alt="logo" className="h-14 sm:h-20" />
                     </Link>
-                    <li className="p-2 text-2xl border-b border-gray-300 mt-10 hover:text-orange-600" onClick={handleNav}><Link to="/">Home</Link></li>
-                    <li className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
+                    <li 
+                    className="p-2 text-2xl border-b border-gray-300 mt-10 hover:text-orange-600" onClick={handleNav}>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li 
+                    className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
                         <Link to="/about">About</Link>
-                    </li>                    
+                    </li>     
+                    <li 
+                    className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
+                        <Link to="/account">Account</Link>
+                    </li>    
+                    <li 
+                    className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
+                        <Link to="/cart">Cart</Link>
+                    </li>                 
                 </ul>
             </div>
         </div>

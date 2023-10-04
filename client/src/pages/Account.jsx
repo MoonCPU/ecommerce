@@ -4,20 +4,20 @@ import axios from 'axios';
 
 function Account() {
     const { user } = useAuth();
-    const [cartItems, setCartItems] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         if (user) {
             fetchCartData(user.user_id);
         } else {
-            setCartItems([]);
+            setOrders([]);
         }
     }, [user]);
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/cart/get_cart/${userId}`);
-            setCartItems(response.data);
+            const response = await axios.get(`http://localhost:5000/orders/get_orders/${userId}`);
+            setOrders(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -34,12 +34,12 @@ function Account() {
             <section>
                 <h1>Your orders</h1>
                 <div>
-                    {cartItems.length > 0 ? (
+                    {orders.length > 0 ? (
                         <div>
                             {/* Map through cartItems to display each item */}
-                            {cartItems.map(item => (
-                                <div key={item.cart_id}>
-                                    {item.product_name}
+                            {orders.map(item => (
+                                <div key={item.order_id}>
+                                    {item.street}
                                     {/* Add other details as needed */}
                                 </div>
                             ))}

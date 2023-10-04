@@ -82,7 +82,6 @@ function Cart() {
         try {
             const response = await axios.get(`http://localhost:5000/cart/get_cart/${userId}`);
             setCartItems(response.data);
-            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -205,7 +204,7 @@ function Cart() {
                     <div className='flex flex-col md:flex-row items-center md:items-start justify-center gap-6'>
                         <div id='cart'>
                             {cartItems.map((item) => (
-                                <div key={item.cart_id} className='border-2 border-black flex flex-col sm:flex-row p-2 box-border sm:gap-x-4 mb-3 max-w-md'>
+                                <div key={item.cart_id} className='border-2 border-black flex flex-col sm:flex-row p-2 box-border sm:gap-x-4 mb-3 max-w-xl'>
                                     <div className='flex flex-col sm:flex-row'>
                                         <div id='cart-image' className='flex flex-[1.5] flex-col sm:items-start items-center justify-center'>
                                             <div id='cart-name' className="text-xl text-center font-bold">
@@ -227,13 +226,13 @@ function Cart() {
                                             </div>
                                         </div>      
 
-                                        <div id='cart-price' className='flex flex-[2] flex-row gap-2 items-center justify-center ml-2'>
-                                            <div>
+                                        <div id='cart-price' className='flex flex-[2] flex-row gap-2 items-center justify-center ml-2 px-2 sm:w-[210px]'>
+                                            <div className='text-center whitespace-nowrap'>
                                                 {item.quantity} X {`R$${item.product_price}`} 
                                             </div>
                                             <div className="flex h-full sm:h-[25%] my-auto min-h-[1em] w-px self-stretch bg-gradient-to-tr from-transparent via-neutral-600 to-transparent opacity-40"></div>
-                                            <div className='text-lg sm:text-xl font-bold text-orange-600'>
-                                                {`R$${item.total_price}`}      
+                                            <div className='text-lg font-bold text-orange-600'>
+                                                {`R$${parseFloat(item.total_price).toFixed(2)}`} 
                                             </div>
                                         </div>                                         
                                     </div>
