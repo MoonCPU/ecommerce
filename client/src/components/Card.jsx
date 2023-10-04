@@ -157,7 +157,7 @@ function Card() {
                                         <GrFormNext size={32} className='cursor-pointer' onClick={() => handleIncreaseQuantity(card.product_id)}  />
                                     </div>                                    
                                 </div>
-                                <button className="bg-green-500 hover:bg-green-700 text-white text-xl font-bold transition duration-400">Add</button>                                    
+                                <button className="bg-green-500 hover:bg-green-700 text-white text-xl font-bold transition duration-400">Adicionar</button>                                    
                             </form>
                         </div>
                     ))}

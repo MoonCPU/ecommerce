@@ -128,7 +128,6 @@ function Cart() {
     const handleFinishPurchase = async () => {
         const currentDate = new Date();
         const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;
-        console.log(formattedDate);
 
         try {
             const addressData = {
@@ -152,7 +151,8 @@ function Cart() {
                     quantity: cartItem.quantity,
                     product_size: cartItem.product_size,
                     total_price: cartItem.total_price,
-                    address_id: responseAddress.data.address_id 
+                    address_id: responseAddress.data.address_id,
+                    purchase_date: formattedDate
                 };
     
                 const responsePurchase = await axios.post('http://localhost:5000/orders/finish_purchase', orderData);
@@ -255,7 +255,7 @@ function Cart() {
                                         name='cep'
                                         onChange={(e) => debouncedHandleCep(e.target.value)} 
                                         required
-                                        placeholder='00000-000'
+                                        placeholder='ex: 01123000'
                                         className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-[50%]'
                                     />
                                 </section>
