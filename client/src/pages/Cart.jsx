@@ -19,7 +19,7 @@ function Cart() {
     const [complement, setComplement] = useState('');
 
     const notifyDelete = () => {
-        toast.error('Item deleted', {
+        toast.error('Item deletado!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -32,7 +32,7 @@ function Cart() {
     }
 
     const notifyFailedCep = () => {
-        toast.error('CEP is not valid!', {
+        toast.error('CEP não é válido!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -45,7 +45,7 @@ function Cart() {
     }
 
     const notifySuccessCep = () => {
-        toast.success('CEP found!', {
+        toast.success('CEP encontrado!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -58,7 +58,7 @@ function Cart() {
     }
 
     const notifySuccess = () => {
-        toast.success('Finished!', {
+        toast.success('Finalizado!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -195,7 +195,7 @@ function Cart() {
 
     const debouncedHandleCep = _.debounce((cep) => {
         handleCep(cep);
-    }, 800);
+    }, 1200);
 
     return (
         <div>
@@ -260,7 +260,7 @@ function Cart() {
                                     />
                                 </section>
                                 <section className='flex flex-col gap-y-1'>
-                                    <label>Street:</label>
+                                    <label>Rua:</label>
                                     <input 
                                     type="text" 
                                     name='street' 
@@ -271,7 +271,7 @@ function Cart() {
                                 </section>      
                                 <section className='flex flex-row gap-y-2 gap-x-2'>
                                     <div className='flex-1'>
-                                        <label>Number:</label>
+                                        <label>Número:</label>
                                         <input 
                                         type="text" 
                                         name='number' 
@@ -281,18 +281,18 @@ function Cart() {
                                         className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
                                     </div>
                                     <div className='flex-[2]'>
-                                        <label>Complement:</label>
+                                        <label>Complemento:</label>
                                         <input 
                                         type="text" 
                                         name='complement' 
                                         value={complement}
-                                        placeholder='(optional)'
+                                        placeholder='(opcional)'
                                         onChange={(e) => setComplement(e.target.value)}
                                         className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
                                     </div>                                     
                                 </section>        
                                 <section className='flex flex-col gap-y-1'>
-                                    <label>Neighborhood:</label>
+                                    <label>Bairro:</label>
                                     <input 
                                     type="text" 
                                     name='neighborhood' 
@@ -303,7 +303,7 @@ function Cart() {
                                 </section>                    
                                 <section className='flex flex-row gap-y-2 gap-x-2'>
                                     <div className='flex-[2]'>
-                                        <label>City:</label>
+                                        <label>Cidade:</label>
                                         <input 
                                         type="text" 
                                         name='city' 
@@ -313,7 +313,7 @@ function Cart() {
                                         className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-2 w-full' />                                            
                                     </div>
                                     <div className='flex-1'>
-                                        <label>State:</label>
+                                        <label>Estado:</label>
                                         <input 
                                         type="text" 
                                         name='state' 
@@ -326,14 +326,14 @@ function Cart() {
                                 <button 
                                 type='submit'
                                 className='flex items-center justify-center mt-4 rounded-md bg-orange-500 transition duration-400 hover:bg-orange-600 text-white w-full p-2 font-semibold'>
-                                    Finish Purchase
+                                    Finalizar Compra
                                 </button>
                             </form>
                         </div>                                 
                     </div>
                 ) : (
                     <div className='hidden sm:flex text-center justify-center items-center text-2xl my-[15%]'>
-                        <h1>Your cart is empty.</h1>
+                        <h1>Seu carrinho está vazio.</h1>
                     </div>
                 )}
             </div>    

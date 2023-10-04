@@ -12,7 +12,7 @@ function Login() {
     const navigate = useNavigate()
 
     const notifyLoginSuccess = () => {
-        toast.success('Logged in!', {
+        toast.success('Logado!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -25,7 +25,7 @@ function Login() {
     }
 
     const notifyLoginFail = () => {
-        toast.error('Login failed!', {
+        toast.error('Falha no login!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -71,7 +71,7 @@ function Login() {
         <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-center">
             <form onSubmit={handleSubmit} className='mx-2 md:m-0 w-full p-5 sm:p-10 flex flex-col border-black shadow-lg dark:shadow-black/30'>
                 <h1 className="text-lg sm:text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                    Sign in to your account
+                    Faça login em sua conta
                 </h1>
                 <div className="mt-4"> 
                     <div className='my-2'>
@@ -87,7 +87,7 @@ function Login() {
                     <button type="submit" className="mt-4 rounded-md bg-blue-500 transition duration-500 hover:bg-blue-600 text-white w-full p-2 font-semibold">Login</button>
                 </div>
                 <div className='mt-2 text-sm sm:text-base'>
-                    <h2>Register new account <Link to="/register" className='font-medium text-gray-900 underline transition duration-400 hover:text-green-700'>here</Link>
+                    <h2>Registre uma nova conta <Link to="/register" className='font-medium text-gray-900 underline transition duration-400 hover:text-green-700'>aqui</Link>
                     </h2>
                 </div>
                 <ToastContainer
