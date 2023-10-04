@@ -15,7 +15,7 @@ router.post('/add_address', async (req: Request, res: Response) => {
 
         // Insert the new address into the address table
         const newAddress = await pool.query(
-            'INSERT INTO address (user_id, cep, state, city, neighborhood, street, number, complement) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+            'INSERT INTO addresses (user_id, cep, state, city, neighborhood, street, number, complement) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
             [user_id, cep, state, city, neighborhood, street, number, complement]
         );
 

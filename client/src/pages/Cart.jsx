@@ -82,6 +82,7 @@ function Cart() {
         try {
             const response = await axios.get(`http://localhost:5000/cart/get_cart/${userId}`);
             setCartItems(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -126,21 +127,45 @@ function Cart() {
     };
 
     const handleFinishPurchase = async () => {
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;
+        console.log(formattedDate);
+
         try {
             const addressData = {
+                user_id: user.user_id,
                 cep,
                 street,
                 neighborhood,
                 city,
                 state,
                 number,
-                complement,
+                complement
             };
+
+            const responseAddress = await axios.post('http://localhost:5000/address/add_address', addressData);
+            console.log(responseAddress.data.message); 
+
+            for (const cartItem of cartItems) {
+                const orderData = {
+                    user_id: user.user_id,
+                    product_id: cartItem.product_id,
+                    quantity: cartItem.quantity,
+                    product_size: cartItem.product_size,
+                    total_price: cartItem.total_price,
+                    address_id: responseAddress.data.address_id 
+                };
     
-            const response = await axios.post(`http://localhost:5000/cart/add_cart_address/${user.user_id}`, addressData);
+                const responsePurchase = await axios.post('http://localhost:5000/orders/finish_purchase', orderData);
+                console.log(responsePurchase.data.message);
+    
+                // Delete the cart item after a successful purchase
+                await axios.delete(`http://localhost:5000/cart/delete_cart/${cartItem.cart_id}`);
+                console.log(`Cart item ${cartItem.cart_id} deleted`);
+            }
+
             notifySuccess();
-    
-            console.log(response.data.message); 
+            
             setCartItems([]);
             setCep('');
             setStreet('');
