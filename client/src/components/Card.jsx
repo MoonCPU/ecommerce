@@ -13,7 +13,7 @@ function Card() {
     const { user } = useAuth();
 
     const notifySuccess = () => {
-        toast.success('Added to cart!', {
+        toast.success('Adicionado ao carrinho!', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -26,7 +26,7 @@ function Card() {
     }
 
     const notifyFailure = () => {
-        toast.error('Failed to add to cart!', {
+        toast.error('Oops! Algo deu errado.', {
             position: "top-right",
             autoClose: 500,
             hideProgressBar: true,
@@ -39,7 +39,7 @@ function Card() {
     }
 
     const notifyNotLoggedIn = () => {
-        toast.warn('User is not logged in!', {
+        toast.warn('O usuário não está logado!', {
             position: "top-right",
             autoClose: 1000,
             hideProgressBar: true,

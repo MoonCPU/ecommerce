@@ -37,8 +37,13 @@ function Account() {
             <main className='flex items-center justify-center'>
                 <div className='text-2xl sm:text-3xl font-bold'>
                     {user ? (
-                        <div>
-                            Bem-vindo, {user.user_name}
+                        <div className='flex flex-col'>
+                            <h1>
+                                Bem-vindo, {user.user_name}  
+                            </h1>
+                            <h1 className='text-xl sm:text-2xl font-normal text-center'>
+                                {user.user_email}
+                            </h1>
                         </div>
                     ): (
                         <div>
