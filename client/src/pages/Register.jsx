@@ -40,7 +40,7 @@ function Register() {
             const password = e.target.password.value;      
 
         try {
-            const response = await axios.post('http://localhost:5000/auth/register', {name, email, password});
+            const response = await axios.post('/auth/register', {name, email, password});
             console.log(response.data);
             notifySuccess();
             setTimeout(() => {
@@ -56,11 +56,11 @@ function Register() {
         <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-center">
             <form onSubmit={handleSubmit} className='mx-2 md:m-0 w-full p-5 sm:p-10 flex flex-col border-black shadow-lg dark:shadow-black/30'>
                 <h1 className="text-lg sm:text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                    Register your account
+                Registre sua conta
                 </h1>
                 <div className="mt-4"> 
                     <div className='my-2'>
-                        <label className='block mb-2 text-sm sm:text-lg font-medium text-gray-900'>Name:</label>
+                        <label className='block mb-2 text-sm sm:text-lg font-medium text-gray-900'>Nome:</label>
                         <input type="text" name='name' required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name" /> 
                     </div>
                     <div className='my-2'>
@@ -68,7 +68,7 @@ function Register() {
                         <input type="email" name='email' required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@email.com" /> 
                     </div>
                     <div className='my-2'>
-                        <label className='block mb-2 text-sm sm:text-lg font-medium text-gray-900'>Password:</label>
+                        <label className='block mb-2 text-sm sm:text-lg font-medium text-gray-900'>Senha:</label>
                         <input type="password" name='password' required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="****" /> 
                     </div>
                 </div>

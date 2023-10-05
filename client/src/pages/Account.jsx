@@ -17,7 +17,7 @@ function Account() {
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/orders/get_orders/${userId}`);
+            const response = await axios.get(`/orders/get_orders/${userId}`);
             setOrders(response.data);
         } catch (error) {
             console.error(error);

@@ -52,7 +52,7 @@ function Login() {
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', {email, password});
+            const response = await axios.post('/auth/login', {email, password});
             const token = response.data.token;
             localStorage.setItem('token', token);
             const decodedToken = jwtDecode(token);

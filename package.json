@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.ts"
+  "engine": {
+    "node": "18.16.0",
+    "npm": "8.19.2"
   },
+  "scripts": {
+    "start": "nodemon ./index.ts",
+    "heroku-postbuild": "cd ./client && npm install && npm run build"
+  }, 
   "keywords": [],
   "author": "",
   "license": "ISC",

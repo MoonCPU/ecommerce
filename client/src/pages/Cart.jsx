@@ -80,7 +80,7 @@ function Cart() {
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/cart/get_cart/${userId}`);
+            const response = await axios.get(`/cart/get_cart/${userId}`);
             setCartItems(response.data);
         } catch (error) {
             console.error(error);
@@ -91,7 +91,7 @@ function Cart() {
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
             if (newQuantity <= 0) {
-                await axios.delete(`http://localhost:5000/cart/delete_cart/${cartId}`);
+                await axios.delete(`/cart/delete_cart/${cartId}`);
                 notifyDelete();
                 setCartItems(prevCartItems =>
                     prevCartItems.filter(item => item.cart_id !== cartId)
@@ -103,7 +103,7 @@ function Cart() {
             const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
-            await axios.patch('http://localhost:5000/cart/edit_cart', {
+            await axios.patch('/cart/edit_cart', {
                 user_id: user.user_id,
                 cart_id: cartId,
                 quantity: newQuantity,
@@ -141,7 +141,7 @@ function Cart() {
                 complement
             };
 
-            const responseAddress = await axios.post('http://localhost:5000/address/add_address', addressData);
+            const responseAddress = await axios.post('/address/add_address', addressData);
             console.log(responseAddress.data.message); 
 
             for (const cartItem of cartItems) {
@@ -155,11 +155,11 @@ function Cart() {
                     purchase_date: formattedDate
                 };
     
-                const responsePurchase = await axios.post('http://localhost:5000/orders/finish_purchase', orderData);
+                const responsePurchase = await axios.post('/orders/finish_purchase', orderData);
                 console.log(responsePurchase.data.message);
     
                 // Delete the cart item after a successful purchase
-                await axios.delete(`http://localhost:5000/cart/delete_cart/${cartItem.cart_id}`);
+                await axios.delete(`/cart/delete_cart/${cartItem.cart_id}`);
                 console.log(`Cart item ${cartItem.cart_id} deleted`);
             }
 
@@ -247,7 +247,7 @@ function Cart() {
                                 handleFinishPurchase();
                             }}
                             className='flex flex-col shadow-lg dark:shadow-black/30 box-border p-4 sm:p-5 gap-y-2 max-w-xs text-sm sm:text-lg mx-2'>
-                                <h1 className='text-xl sm:text-2xl font-medium text-orange-500'>Address</h1>
+                                <h1 className='text-xl sm:text-2xl font-medium text-orange-500'>Endereço</h1>
                                 <section className='flex gap-3'>
                                     <label>CEP:</label>
                                     <input
