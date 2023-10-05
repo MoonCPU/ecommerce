@@ -12,9 +12,6 @@ function Card() {
     const [ProductCards, setCard] = useState([]);
     const { user } = useAuth();
 
-    //proxy 
-
-
     const notifySuccess = () => {
         toast.success('Adicionado ao carrinho!', {
             position: "top-right",

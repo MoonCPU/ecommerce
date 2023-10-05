@@ -26,10 +26,6 @@ app.use('/cart', cartRouter);
 app.use('/address', addressRouter); 
 app.use('/orders', ordersRouter); 
 
-app.get("*", (req: Request, res: Response) => {
-    res.send(path.join(__dirname, "./client/dist/index.html"))
-})
-
 app.listen(PORT, () => {
     console.log(`the server is running on localhost port ${PORT}`);
 });
