@@ -10,13 +10,11 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.options('*', cors());
-
 app.use(express.json());
 
 app.use(cors({
     origin: 'https://ecommerce-kappa-umber.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     credentials: true,
 }));
 
