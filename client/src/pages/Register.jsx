@@ -40,7 +40,7 @@ function Register() {
             const password = e.target.password.value;      
 
         try {
-            const response = await axios.post('/auth/register', {name, email, password});
+            const response = await axios.post('https://moon-ecommerce.onrender.com/auth/register', {name, email, password});
             console.log(response.data);
             notifySuccess();
             setTimeout(() => {

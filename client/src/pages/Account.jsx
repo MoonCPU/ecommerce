@@ -1,6 +1,7 @@
 import { useAuth } from '../components/AuthProvider';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'dotenv/config'
 
 function Account() {
     const { user } = useAuth();
@@ -17,7 +18,7 @@ function Account() {
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`/orders/get_orders/${userId}`);
+            const response = await axios.get(`https://moon-ecommerce.onrender.com/orders/get_orders/${userId}`);
             setOrders(response.data);
         } catch (error) {
             console.error(error);

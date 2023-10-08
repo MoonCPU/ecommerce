@@ -80,7 +80,7 @@ function Cart() {
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`/cart/get_cart/${userId}`);
+            const response = await axios.get(`https://moon-ecommerce.onrender.com/cart/get_cart/${userId}`);
             setCartItems(response.data);
         } catch (error) {
             console.error(error);
@@ -91,7 +91,7 @@ function Cart() {
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
             if (newQuantity <= 0) {
-                await axios.delete(`/cart/delete_cart/${cartId}`);
+                await axios.delete(`https://moon-ecommerce.onrender.com/cart/delete_cart/${cartId}`);
                 notifyDelete();
                 setCartItems(prevCartItems =>
                     prevCartItems.filter(item => item.cart_id !== cartId)
@@ -103,7 +103,7 @@ function Cart() {
             const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
-            await axios.patch('/cart/edit_cart', {
+            await axios.patch('https://moon-ecommerce.onrender.com/cart/edit_cart', {
                 user_id: user.user_id,
                 cart_id: cartId,
                 quantity: newQuantity,
@@ -141,7 +141,7 @@ function Cart() {
                 complement
             };
 
-            const responseAddress = await axios.post('/address/add_address', addressData);
+            const responseAddress = await axios.post('https://moon-ecommerce.onrender.com/address/add_address', addressData);
             console.log(responseAddress.data.message); 
 
             for (const cartItem of cartItems) {
@@ -155,7 +155,7 @@ function Cart() {
                     purchase_date: formattedDate
                 };
     
-                const responsePurchase = await axios.post('/orders/finish_purchase', orderData);
+                const responsePurchase = await axios.post('https://moon-ecommerce.onrender.com/orders/finish_purchase', orderData);
                 console.log(responsePurchase.data.message);
     
                 // Delete the cart item after a successful purchase
