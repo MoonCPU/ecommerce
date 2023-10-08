@@ -340,7 +340,7 @@ function Cart() {
                         </div>                                 
                     </div>
                 ) : (
-                    <div className='hidden sm:flex text-center justify-center items-center text-2xl my-[15%]'>
+                    <div className='flex text-center justify-center items-center text-2xl my-[15%]'>
                         <h1>Seu carrinho está vazio.</h1>
                     </div>
                 )}

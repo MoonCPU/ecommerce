@@ -129,7 +129,7 @@ function Card() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mb-4">
             {ProductCards.length > 0 ? (
                 <div className="flex flex-wrap flex-row gap-6 items-center justify-center">
                     {ProductCards.map((card) => (
@@ -176,7 +176,7 @@ function Card() {
                 </div>
             ) : (
                 <div className='text-center text-2xl my-[15%]'>
-                    <h1>Wow, this is so empty...</h1>
+                    <h1>Wow, aqui está tão vazio...</h1>
                 </div>
             )}
         </div>

@@ -55,7 +55,7 @@ function Account() {
 
             <div>
                 <h1 className='text-2xl sm:text-3xl font-bold m-3'>Seus pedidos</h1>
-                <section id='orders' className='flex flex-col border-2 border-black p-4 m-3'>
+                <section id='orders' className='flex flex-col border-2 border-black p-4 m-4'>
                     <div>
                         {orders.length > 0 ? (
                             <div className='flex flex-col gap-y-4'>

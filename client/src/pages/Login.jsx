@@ -69,7 +69,7 @@ function Login() {
 
     return (
         <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-center">
-            <form onSubmit={handleSubmit} className='mx-2 md:m-0 w-full p-5 sm:p-10 flex flex-col border-black shadow-lg dark:shadow-black/30'>
+            <form onSubmit={handleSubmit} className='mx-4 md:m-0 w-full p-5 sm:p-10 flex flex-col border-black shadow-lg dark:shadow-black/30'>
                 <h1 className="text-lg sm:text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                     Faça login em sua conta
                 </h1>
