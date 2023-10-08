@@ -158,8 +158,16 @@ function Cart() {
                 const responsePurchase = await axios.post('https://moon-ecommerce.onrender.com/orders/finish_purchase', orderData);
                 console.log(responsePurchase.data.message);
     
+                const token = await localStorage.getItem('token');
+                console.log(token);
+
                 // Delete the cart item after a successful purchase
-                await axios.delete(`/cart/delete_cart/${cartItem.cart_id}`);
+                await axios.delete(`https://moon-ecommerce.onrender.com/cart/delete_cart/${cartItem.cart_id}`, {
+                    withCredentials: true,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
                 console.log(`Cart item ${cartItem.cart_id} deleted`);
             }
 
