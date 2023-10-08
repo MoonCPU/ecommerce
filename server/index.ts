@@ -6,7 +6,6 @@ import cartRouter from './routes/cart';
 import addressRouter from './routes/address'; 
 import ordersRouter from './routes/orders'; 
 
-const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 const app = express();

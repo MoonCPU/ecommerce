@@ -1,7 +1,6 @@
 import { useAuth } from '../components/AuthProvider';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import 'dotenv/config'
 
 function Account() {
     const { user } = useAuth();
