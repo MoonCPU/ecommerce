@@ -23,14 +23,9 @@ function About() {
                     Supreendentemente, a parte mais difícil não foi criar a API do lado do back-end, mas sim, foi como consumir e exibi-la no front-end. Como lidar com a resposta da minha solicitação? Como compartilhá-la entre diferentes componentes e páginas? O que fazer se o seu valor for alterado?
                 </h2>
                 <h2>
-                    Há muito sobre o que eu poderia falar aqui, mas vou manter esse texto curto. Em resumo, o projeto é uma aplicação simples, com APIs que realizarão operações CRUD quando suas rotas forem acionadas por solicitações HTTP, e a resposta será exibida na interface do usuário. É simples, mas me exigiu muito esforço para concluir este projeto. Mas uma imagem fala mais que mil palavras.
-                </h2>
-                <img className="rounded-md shadow-lg dark:shadow-black/30 my-5 border-2" src="/ani.gif" alt="animationGif" />
-                <h2>
-                    ...se o ChatGPT fosse uma pessoa real, ele certamente teria ficado muito irritado comigo.
+                    Há muito sobre o que eu poderia falar aqui, mas vou manter esse texto curto. Em resumo, o projeto é uma aplicação simples, com APIs que realizarão operações CRUD quando suas rotas forem acionadas por solicitações HTTP, e a resposta será exibida na interface do usuário. É simples, mas não foi fácil. 
                 </h2>
             </div>
-            
         </div>
     )
 }
