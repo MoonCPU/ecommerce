@@ -1,10 +1,11 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import cors from 'cors';
 import jwtAuthRouter from './routes/jwtAuth'; 
 import productsRouter from './routes/products'; 
 import cartRouter from './routes/cart'; 
 import addressRouter from './routes/address'; 
 import ordersRouter from './routes/orders'; 
+require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
 
@@ -13,7 +14,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://ecommerce-kappa-umber.vercel.app',
+    origin: process.env.REACT_URL,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     credentials: true,
 }));
