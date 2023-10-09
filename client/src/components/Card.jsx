@@ -129,16 +129,16 @@ function Card() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto flex items-center">
+        <div className="max-w-4xl mx-auto">
             {ProductCards.length > 0 ? (
-                <div className="flex flex-wrap flex-row gap-6 items-center justify-center">
+                <div className="flex flex-col flex-wrap sm:flex-row gap-6 items-center justify-center mb-4">
                     {ProductCards.map((card) => (
                         <div key={card.product_id} className="flex flex-col border-2 border-black">
                             <div className="text-xl text-center font-bold">
                                 {card.product_name}
                             </div>                            
                             <div className="max-w-[200px] box-border p-2">
-                                <img src={`/shoes/${card.product_id}.png`} alt={card.product_name} className=""/>                                
+                                <img src={`/shoes/${card.product_id}.png`} alt={card.product_name}/>                                
                             </div>
                             <div className="pt-1 text-lg text-center border-t-2 border-black">
                                 {`R$${card.product_price}`}
@@ -175,7 +175,7 @@ function Card() {
                     />
                 </div>
             ) : (
-                <div className='text-center text-2xl my-[15%]'>
+                <div className='flex items-center justify-center text-center text-2xl my-[15%]'>
                     <h1>Wow, aqui está tão vazio...</h1>
                 </div>
             )}
