@@ -8,6 +8,8 @@ import { GrFormPrevious } from 'react-icons/gr';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 function Card() {
     const [ProductCards, setCard] = useState([]);
     const { user } = useAuth();
@@ -57,12 +59,12 @@ function Card() {
 
     const fetchCartData = async () => {
         try {
-            const response = await axios.get('https://moon-ecommerce.onrender.com/products/get_all_products/');
+            const response = await axios.get(`${apiURL}/products/get_all_products/`);
             // Initialize quantity and productPrice for each product
             const productsWithQuantity = response.data.map(product => ({
                 ...product,
                 quantity: 1,
-                productPrice: product.product_price // Initialize productPrice
+                productPrice: product.product_price 
             }));
             setCard(productsWithQuantity);
         } catch (error) {
@@ -86,7 +88,6 @@ function Card() {
     }
 
     const handleIncreaseQuantity = (productId) => {
-        // Find the product by ID and update its quantity
         setCard(prevState => {
             return prevState.map(product => {
                 if (product.product_id === productId) {
@@ -107,16 +108,15 @@ function Card() {
             const user_id = user.user_id;
             const size = e.target.size.value;
 
-            // Calculate the total price
             const total_price = productPrice * currentQuantity;
 
             try {
-                await axios.post('https://moon-ecommerce.onrender.com/cart/add_to_cart/', {
+                await axios.post(`${apiURL}/cart/add_to_cart/`, {
                     user_id: user_id,
                     product_id: productId,
                     quantity: currentQuantity,
                     size: size,
-                    total_price: total_price, // Include total_price in the request
+                    total_price: total_price, 
                 });
                 notifySuccess();
             } catch (error) {

@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import _ from 'lodash';
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 function Cart() {
     const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
@@ -80,7 +82,7 @@ function Cart() {
 
     const fetchCartData = async (userId) => {
         try {
-            const response = await axios.get(`https://moon-ecommerce.onrender.com/cart/get_cart/${userId}`);
+            const response = await axios.get(`${apiURL}/cart/get_cart/${userId}`);
             setCartItems(response.data);
         } catch (error) {
             console.error(error);
@@ -91,7 +93,7 @@ function Cart() {
     const handleQuantityChange = async (cartId, newQuantity) => {
         try {
             if (newQuantity <= 0) {
-                await axios.delete(`https://moon-ecommerce.onrender.com/cart/delete_cart/${cartId}`);
+                await axios.delete(`${apiURL}/cart/delete_cart/${cartId}`);
                 notifyDelete();
                 setCartItems(prevCartItems =>
                     prevCartItems.filter(item => item.cart_id !== cartId)
@@ -103,7 +105,7 @@ function Cart() {
             const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
-            await axios.patch('https://moon-ecommerce.onrender.com/cart/edit_cart', {
+            await axios.patch(`${apiURL}/cart/edit_cart`, {
                 user_id: user.user_id,
                 cart_id: cartId,
                 quantity: newQuantity,
@@ -141,7 +143,7 @@ function Cart() {
                 complement
             };
 
-            const responseAddress = await axios.post('https://moon-ecommerce.onrender.com/address/add_address', addressData);
+            const responseAddress = await axios.post(`${apiURL}/address/add_address`, addressData);
             console.log(responseAddress.data.message); 
 
             for (const cartItem of cartItems) {
@@ -155,14 +157,14 @@ function Cart() {
                     purchase_date: formattedDate
                 };
     
-                const responsePurchase = await axios.post('https://moon-ecommerce.onrender.com/orders/finish_purchase', orderData);
+                const responsePurchase = await axios.post(`${apiURL}/orders/finish_purchase`, orderData);
                 console.log(responsePurchase.data.message);
     
                 const token = await localStorage.getItem('token');
                 console.log(token);
 
                 // Delete the cart item after a successful purchase
-                await axios.delete(`https://moon-ecommerce.onrender.com/cart/delete_cart/${cartItem.cart_id}`, {
+                await axios.delete(`${apiURL}/cart/delete_cart/${cartItem.cart_id}`, {
                     withCredentials: true,
                     headers: {
                         'Authorization': `Bearer ${token}`,

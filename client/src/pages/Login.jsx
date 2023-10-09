@@ -7,6 +7,8 @@ import { AuthContext } from '../components/AuthProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 function Login() {
     const { setUser } = useContext(AuthContext);
     const navigate = useNavigate()
@@ -52,7 +54,7 @@ function Login() {
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            const response = await axios.post('https://moon-ecommerce.onrender.com/auth/login', {email, password});
+            const response = await axios.post(`${apiURL}/auth/login`, {email, password});
             const token = response.data.token;
             localStorage.setItem('token', token);
             const decodedToken = jwtDecode(token);

@@ -3,6 +3,8 @@ import { useNavigate  } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 function Register() {
     const navigate = useNavigate()
 
@@ -40,7 +42,7 @@ function Register() {
             const password = e.target.password.value;      
 
         try {
-            const response = await axios.post('https://moon-ecommerce.onrender.com/auth/register', {name, email, password});
+            const response = await axios.post(`${apiURL}/auth/register`, {name, email, password});
             console.log(response.data);
             notifySuccess();
             setTimeout(() => {
