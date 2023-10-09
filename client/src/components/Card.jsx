@@ -129,9 +129,9 @@ function Card() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto flex items-center">
             {ProductCards.length > 0 ? (
-                <div className="flex flex-wrap flex-row gap-6 items-center justify-center mb-4">
+                <div className="flex flex-wrap flex-row gap-6 items-center justify-center">
                     {ProductCards.map((card) => (
                         <div key={card.product_id} className="flex flex-col border-2 border-black">
                             <div className="text-xl text-center font-bold">

@@ -209,7 +209,7 @@ function Cart() {
         <div>
             <div id='desktop' className='flex items-center justify-center'>
                 {cartItems.length > 0 ? (
-                    <div className='flex flex-col md:flex-row items-center md:items-start justify-center gap-6'>
+                    <div className='flex flex-col md:flex-row items-center md:items-start justify-center gap-6 my-4'>
                         <div id='cart'>
                             {cartItems.map((item) => (
                                 <div key={item.cart_id} className='border-2 border-black flex flex-col sm:flex-row p-2 box-border sm:gap-x-4 mb-3 max-w-xl'>
