@@ -2,28 +2,32 @@
 
 function About() {
     return (
-        <div className="max-w-xl mx-auto flex flex-col gap-y-6 box-border">
+        <div className="max-w-xl mx-auto flex flex-col gap-y-6 box-border mb-4">
             <div className="flex justify-center items-center">
                 <h1 className="text-2xl">DevBlog</h1>
             </div>
-            <div className="flex flex-col text-left indent-2 text-lg gap-y-2 m-4">
+            <div className="flex flex-col text-left indent-2 text-lg gap-y-2 m-5">
                 <h2>
-                    Hello. This is my first full stack web project. I made the front-end on React, and the back-end on Node with PostgreSQL as the database, and it took me some two months to complete it. Let&apos;s start with the back-end. 
+                    Olá. Este é o meu primeiro projeto web full stack. Eu criei o front-end em React e o back-end em Node com PostgreSQL como banco de dados, e levei cerca de dois meses para concluí-lo.
                 </h2>    
                 <h2>
-                    Since this is an ecommerce website, it needed to have a register and login system. I&apos;ve never handled login before, so I watched this video tutorial on the PERN stack by &apos;The Stoic Programmers&apos;
+                    Como este é um site de ecommerce, ele precisava ter um sistema de registro e login. Nunca trabalhei com login antes, então assisti este tutorial sobre a stack PERN no canal do youtube &apos;The Stoic Programmers&apos; que aborda justamente esse tema.
                 </h2>
                 <div className="flex items-center justify-center aspect-video">
                     <iframe className="w-full h-full" src="https://www.youtube.com/embed/7UQBMb8ZpuE" title="Learn JWT with the PERN stack by building a Registration/Login system Part 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>                    
                 </div>
                 <h2>
-                    The video above taught me the basic workings of the PERN stack, JWT token, how to set up a PostgreSQL database, etc. But the teachings in the video was basically the basis of the stack and how they implement each other aside from the basic stuff, I was on my own.
+                    O vídeo acima me ensinou o funcionamento básico da stack PERN, token JWT, como configurar um banco de dados PostgreSQL, etc. Mas para todo o resto, eu estava por minha conta.
                 </h2> 
                 <h2>
-                    The difficult part wasn&apos;t creating the API in the server side though, it was how to consume it on the front-end. Even if you create a local state in your components to store the data of your GET requests, it can only be accessed inside that specific component. What if you wanted to share it across your entire application? To solve this, I decided to use the useContext hook React provides by creating a separate file to store all global states so that every component can use them.
+                    Supreendentemente, a parte mais difícil não foi criar a API do lado do back-end, mas sim, foi como consumir e exibi-la no front-end. Como lidar com a resposta da minha solicitação? Como compartilhá-la entre diferentes componentes e páginas? O que fazer se o seu valor for alterado?
                 </h2>
                 <h2>
-                    There&apos;s so much I could talk about here, but I&apos;ll keep it short.
+                    Há muito sobre o que eu poderia falar aqui, mas vou manter esse texto curto. Em resumo, o projeto é uma aplicação simples, com APIs que realizarão operações CRUD quando suas rotas forem acionadas por solicitações HTTP, e a resposta será exibida na interface do usuário. É simples, mas me exigiu muito esforço para concluir este projeto. Mas uma imagem fala mais que mil palavras.
+                </h2>
+                <img className="rounded-md shadow-lg dark:shadow-black/30 my-5 border-2" src="/ani.gif" alt="animationGif" />
+                <h2>
+                    ...se o ChatGPT fosse uma pessoa real, ele certamente teria ficado muito irritado comigo.
                 </h2>
             </div>
             

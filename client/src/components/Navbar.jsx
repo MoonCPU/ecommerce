@@ -18,7 +18,7 @@ function Navbar() {
             {/* desktop menu*/}
             <div className="text-5xl sm:text-6xl flex flex-row items-center justify-center">
                 <Link to="/">
-                    <img src="/logo.png" alt="logo" className="h-8 sm:h-20" />
+                    <img src="/logo.png" alt="logo" className="h-10 sm:h-20" />
                 </Link>
             </div>
             <ul className="hidden sm:flex flex-row items-center gap-4 font-bold">
@@ -58,10 +58,10 @@ function Navbar() {
                         <>
                             <div className='flex flex-row items-center justify-center'>
                                 <Link to="/account">
-                                        <BiSolidUser size={22} className='hover:text-orange-600'/>
+                                        <BiSolidUser size={23} className='hover:text-orange-600'/>
                                 </Link>
                                 <h1 className='font-bold mx-1'>/</h1>
-                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={22} />                                
+                                <BiLogOut className="cursor-pointer hover:text-orange-600" onClick={handleLogout} size={23} />                                
                             </div>
                         </>
                     ) : (
