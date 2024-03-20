@@ -20,10 +20,7 @@ function About() {
                     O vídeo acima me ensinou o funcionamento básico da stack PERN, token JWT, como configurar um banco de dados PostgreSQL, etc. Mas para todo o resto, eu estava por minha conta.
                 </h2> 
                 <h2>
-                    Supreendentemente, a parte mais difícil não foi criar a API do lado do back-end, mas sim, foi como consumir e exibi-la no front-end. Como lidar com a resposta da minha solicitação? Como compartilhá-la entre diferentes componentes e páginas? O que fazer se o seu valor for alterado?
-                </h2>
-                <h2>
-                    Há muito sobre o que eu poderia falar aqui, mas vou manter esse texto curto. Em resumo, o projeto é uma aplicação simples, com APIs que realizarão operações CRUD quando suas rotas forem acionadas por solicitações HTTP, e a resposta será exibida na interface do usuário. É simples, mas não foi fácil. 
+                    Em resumo, o projeto é uma aplicação simples, com APIs que realizarão operações CRUD quando suas rotas forem acionadas por solicitações HTTP, e a resposta será exibida na interface do usuário. Tanto o banco Postgres quanto o app Node estão hosteados no Render, enquanto o app Front-end React está hosteado no Vercel. 
                 </h2>
             </div>
         </div>

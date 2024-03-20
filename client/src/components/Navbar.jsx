@@ -94,15 +94,15 @@ function Navbar() {
                     </li>
                     <li 
                     className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
-                        <Link to="/about">About</Link>
+                        <Link to="/about">Sobre</Link>
                     </li>     
                     <li 
                     className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
-                        <Link to="/account">Account</Link>
+                        <Link to="/account">Conta</Link>
                     </li>    
                     <li 
                     className="p-2 text-2xl border-b border-gray-300 hover:text-orange-600" onClick={handleNav}>
-                        <Link to="/cart">Cart</Link>
+                        <Link to="/cart">Carrinho</Link>
                     </li>                 
                 </ul>
             </div>
