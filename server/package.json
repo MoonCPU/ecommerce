@@ -8,7 +8,7 @@
     "npm": "8.19.2"
   },
   "scripts": {
-    "start": "nodemon ./index.ts"
+    "start": "ts-node ./index.ts"
   },
   "keywords": [],
   "author": "",
