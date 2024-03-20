@@ -102,6 +102,7 @@ function Cart() {
                 return;
             }
     
+            
             const updatedCartItem = cartItems.find(item => item.cart_id === cartId);
             const newTotalPrice = updatedCartItem.product_price * newQuantity;
     
