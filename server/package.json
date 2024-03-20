@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.ts",
   "engine": {
-    "node": "18.16.0",
+    "node": "20.11.1",
     "npm": "8.19.2"
   },
   "scripts": {
-    "start": "ts-node ./index.ts"
+    "prestart": "npm install nodemon",
+    "start": "nodemon ./index.ts"
   },
   "keywords": [],
   "author": "",
