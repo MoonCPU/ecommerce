@@ -26,3 +26,6 @@ app.use('/orders', ordersRouter);
 app.listen(5000, () => {
     console.log(`the server is running on localhost port 5000`);
 });
+
+
+// psql --host=footshop.cj688cqw26vd.sa-east-1.rds.amazonaws.com --port=5432 --username=postgres --dbname=footshopDB
