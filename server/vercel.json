@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "env": {
+    "jwtSecret": "SuperSecretToken",
+    "POSTGRES_URL": "postgresql://postgres:soo020674@footshop.cj688cqw26vd.sa-east-1.rds.amazonaws.com:5432/footshopDB",
+    "REACT_URL": "https://ecommerce-kappa-umber.vercel.app"
+  },
+  "builds": [
+    {
+      "src": "index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/auth/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/products/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/cart/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/address/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/orders/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.js"
+    }
+  ]
+}

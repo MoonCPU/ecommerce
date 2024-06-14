@@ -1,11 +1,13 @@
 {
-    "compilerOptions": {
-      "module": "CommonJS",
-      "esModuleInterop": true,
-      "target": "es6",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "outDir": "dist"
-    },
-    "lib": ["es2015"]
+  "compilerOptions": {
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "."  // Root directory is the current directory (server folder)
+  },
+  "include": ["./**/*"],  // Include all files in the current directory and subdirectories
+  "lib": ["es2015"]
 }
