@@ -23,6 +23,10 @@ app.use('/cart', cartRouter);
 app.use('/address', addressRouter); 
 app.use('/orders', ordersRouter); 
 
+app.get('/', (req, res) => {
+    res.send('Hello, world');
+});
+
 app.listen(5000, () => {
     console.log(`the server is running on localhost port 5000`);
 });
