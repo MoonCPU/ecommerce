@@ -7,34 +7,15 @@
   },
   "builds": [
     {
-      "src": "index.ts",
-      "use": "@vercel/node"
+      "src": "server/dist/index.js", 
+      "use": "@now/node-server"
     }
   ],
   "routes": [
-    {
-      "src": "/auth/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/products/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/cart/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/address/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/orders/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/index.js"
-    }
+    { "src": "/auth/(.*)", "dest": "server/dist/index.js" },
+    { "src": "/products/(.*)", "dest": "server/dist/index.js" },
+    { "src": "/cart/(.*)", "dest": "server/dist/index.js" },
+    { "src": "/address/(.*)", "dest": "server/dist/index.js" },
+    { "src": "/orders/(.*)", "dest": "server/dist/index.js" }
   ]
 }
