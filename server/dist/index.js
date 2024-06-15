@@ -23,6 +23,9 @@ app.use('/products', products_1.default);
 app.use('/cart', cart_1.default);
 app.use('/address', address_1.default);
 app.use('/orders', orders_1.default);
+app.get('/', (req, res) => {
+    res.send('Hello, world');
+});
 app.listen(5000, () => {
     console.log(`the server is running on localhost port 5000`);
 });
