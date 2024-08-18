@@ -1,4 +1,6 @@
-module.exports = function (req, res, next) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function default_1(req, res, next) {
     const { email, name, password } = req.body;
     function validEmail(userEmail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
@@ -21,5 +23,6 @@ module.exports = function (req, res, next) {
         }
     }
     next();
-};
+}
+exports.default = default_1;
 //# sourceMappingURL=validInfo.js.map
