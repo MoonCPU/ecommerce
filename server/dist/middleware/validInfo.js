@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = default_1;
 function default_1(req, res, next) {
     const { email, name, password } = req.body;
     function validEmail(userEmail) {
@@ -24,5 +25,4 @@ function default_1(req, res, next) {
     }
     next();
 }
-exports.default = default_1;
 //# sourceMappingURL=validInfo.js.map
