@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = default_1;
-function default_1(req, res, next) {
+exports.default = validateCredentials;
+function validateCredentials(req, res, next) {
     const { email, name, password } = req.body;
     function validEmail(userEmail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);

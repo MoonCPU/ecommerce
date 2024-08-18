@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import jwtAuthRouter from './routes/jwtAuth.js'; 
+import jwtAuthRouter from './routes/jwtAuth'; 
 import productsRouter from './routes/products.js'; 
 import cartRouter from './routes/cart.js'; 
-import addressRouter from './routes/address.js'; 
+import addressRouter from './routes/address.js'
 import ordersRouter from './routes/orders.js';
 
 dotenv.config();

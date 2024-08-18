@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
-import { pool } from '../db';
+import { pool } from "../../db";
 
 // Route to add a new address
 router.post('/add_address', async (req: Request, res: Response) => {

@@ -8,6 +8,9 @@ const pg_1 = require("pg");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.pool = new pg_1.Pool({
-    connectionString: process.env.POSTGRES_URL
+    connectionString: process.env.POSTGRES_URL,
+    ssl: {
+        rejectUnauthorized: false // For development only; for production, you should provide proper SSL certificates
+    }
 });
 //# sourceMappingURL=db.js.map

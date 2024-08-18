@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const jwtAuth_js_1 = __importDefault(require("./routes/jwtAuth.js"));
+const jwtAuth_1 = __importDefault(require("./routes/jwtAuth"));
 const products_js_1 = __importDefault(require("./routes/products.js"));
 const cart_js_1 = __importDefault(require("./routes/cart.js"));
 const address_js_1 = __importDefault(require("./routes/address.js"));
@@ -19,7 +19,7 @@ app.use((0, cors_1.default)({
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     credentials: true,
 }));
-app.use("/auth", jwtAuth_js_1.default);
+app.use("/auth", jwtAuth_1.default);
 app.use('/products', products_js_1.default);
 app.use('/cart', cart_js_1.default);
 app.use('/address', address_js_1.default);
@@ -27,4 +27,4 @@ app.use('/orders', orders_js_1.default);
 app.listen(5000, () => {
     console.log(`The server is running on localhost port 5000`);
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=app.js.map

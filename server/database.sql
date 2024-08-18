@@ -1,13 +1,15 @@
-CREATE DATABASE jwttutorial;
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE users (
+CREATE TABLE users
+(
     user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_name VARCHAR(255) NOT NULL,
     user_email VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE addresses (
+CREATE TABLE addresses
+(
     address_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES users(user_id),
     cep VARCHAR(10),
@@ -19,13 +21,15 @@ CREATE TABLE addresses (
     complement VARCHAR(255)
 );
 
-CREATE TABLE products (
+CREATE TABLE products
+(
     product_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     product_name VARCHAR(255) NOT NULL,
     product_price NUMERIC(10,2) NOT NULL
 );
 
-CREATE TABLE shopping_cart (
+CREATE TABLE shopping_cart
+(
     cart_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID,
     product_id UUID REFERENCES products(product_id),
@@ -35,7 +39,8 @@ CREATE TABLE shopping_cart (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE orders (
+CREATE TABLE orders
+(
     order_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID,
     product_id UUID,

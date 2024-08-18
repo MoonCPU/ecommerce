@@ -1,26 +1,30 @@
-import { NextFunction , Request, Response } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-export default function(req: Request, res: Response, next: NextFunction) {
-  const { email, name, password } = req.body;
-
-  function validEmail(userEmail: string) {
+export default function validateCredentials(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const { email, name, password } = req.body;
+  
+    function validEmail(userEmail: string): boolean {
       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
-  }
-
-  if (req.path === "/register") {
+    }
+  
+    if (req.path === "/register") {
       console.log(!email.length);
       if (![email, name, password].every(Boolean)) {
-          return res.json("Missing Credentials");
+        return res.json("Missing Credentials");
       } else if (!validEmail(email)) {
-          return res.json("Invalid Email");
+        return res.json("Invalid Email");
       }
-  } else if (req.path === "/login") {
+    } else if (req.path === "/login") {
       if (![email, password].every(Boolean)) {
-          return res.json("Missing Credentials");
+        return res.json("Missing Credentials");
       } else if (!validEmail(email)) {
-          return res.json("Invalid Email");
+        return res.json("Invalid Email");
       }
-  }
-
-  next();
+    }
+  
+    next();
 }

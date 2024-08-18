@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
-const db_1 = require("../db");
+const db_1 = require("../../db");
 router.post('/add_to_cart', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { user_id, product_id, quantity, size } = req.body;

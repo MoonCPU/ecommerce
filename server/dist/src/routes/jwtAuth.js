@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const db_1 = require("../db");
-const jwtGenerator_1 = __importDefault(require("../utils/jwtGenerator")); // Use import here
-const validInfo_1 = __importDefault(require("../middleware/validInfo"));
+const db_1 = require("../../db");
+const jwtGenerator_1 = __importDefault(require("../../utils/jwtGenerator"));
+const validInfo_1 = __importDefault(require("../../middleware/validInfo"));
 const router = express_1.default.Router();
 // Registering a new user
 router.post('/register', validInfo_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
-import { pool } from '../db';
+import { pool } from "../../db";
 
 router.post('/add_to_cart', async (req: Request, res: Response) => {
     try {

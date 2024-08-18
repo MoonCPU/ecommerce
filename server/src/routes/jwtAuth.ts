@@ -1,8 +1,8 @@
 import express, { Router, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { pool } from '../db';
-import jwtGenerator from '../utils/jwtGenerator'; // Use import here
-import validInfo from "../middleware/validInfo";
+import { pool } from "../../db";
+import jwtGenerator from "../../utils/jwtGenerator";
+import validInfo from "../../middleware/validInfo";
 
 const router: Router = express.Router();
 
