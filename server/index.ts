@@ -1,11 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import jwtAuthRouter from './routes/jwtAuth'; 
-import productsRouter from './routes/products'; 
-import cartRouter from './routes/cart'; 
-import addressRouter from './routes/address'; 
-import ordersRouter from './routes/orders'; 
-require("dotenv").config();
+import dotenv from 'dotenv';
+import jwtAuthRouter from './routes/jwtAuth.js'; 
+import productsRouter from './routes/products.js'; 
+import cartRouter from './routes/cart.js'; 
+import addressRouter from './routes/address.js'; 
+import ordersRouter from './routes/orders.js';
+
+dotenv.config();
 
 const app = express();
 
@@ -23,13 +25,6 @@ app.use('/cart', cartRouter);
 app.use('/address', addressRouter); 
 app.use('/orders', ordersRouter); 
 
-app.get('/', (req, res) => {
-    res.send('Hello, world');
-});
-
 app.listen(5000, () => {
-    console.log(`the server is running on localhost port 5000`);
+    console.log(`The server is running on localhost port 5000`);
 });
-
-
-
