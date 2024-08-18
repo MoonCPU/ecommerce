@@ -33,7 +33,7 @@ router.post('/register', validInfo, async (req: Request, res: Response) => {
         res.json({token});
 
     }
-    catch (err) {
+    catch (err: any) {
         console.log(err.message)
         res.status(500).send("Server Error")
     }
@@ -67,7 +67,7 @@ router.post('/login', validInfo, async (req: Request, res: Response) => {
         res.json({token});
 
     }
-    catch (err) {
+    catch (err: any) {
         console.log(err.message)
         res.status(500).send('Login Error')
     }

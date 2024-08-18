@@ -48,7 +48,7 @@ router.post('/add_to_cart', async (req: Request, res: Response) => {
 
             return res.json(newCartItem.rows[0]);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -77,7 +77,7 @@ router.patch('/edit_cart', async (req: Request, res: Response) => {
         );
 
         res.json(updatedCartItem.rows[0]); // Return the updated cart item
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -98,7 +98,7 @@ router.get('/get_cart/:user_id', async (req: Request, res: Response) => {
         );
 
         res.json(cartData.rows);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -117,7 +117,7 @@ router.delete('/delete_cart/:cart_id', async (req: Request, res: Response) => {
         await pool.query('DELETE FROM shopping_cart WHERE cart_id = $1', [cart_id]);
 
         res.json({ message: 'Cart item deleted' });
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -135,7 +135,7 @@ router.post('/add_cart_address/:user_id', async (req: Request, res: Response) =>
         );
 
         res.json({ message: 'Address added to the user\'s cart successfully' });
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).json({ error: error.message });
     }

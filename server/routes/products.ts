@@ -7,7 +7,7 @@ router.get('/get_all_products', async (req: Request, res: Response) => {
     try {
         const allProducts = await pool.query('SELECT * FROM products');
         res.json(allProducts.rows);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -22,7 +22,7 @@ router.post('/new', async (req: Request, res: Response) => {
             [product_name, product_price]
         );
         res.json(newProduct.rows[0]);
-    } catch (err) {
+    } catch (err: any) {
         console.log(err.message);
         res.status(500).send('Server error!');
     }

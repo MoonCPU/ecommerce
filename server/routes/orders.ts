@@ -15,7 +15,7 @@ router.post('/finish_purchase', async (req: Request, res: Response) => {
         );
 
         res.json(newOrder.rows[0]);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -50,7 +50,7 @@ router.get('/get_orders/:user_id', async (req: Request, res: Response) => {
         `, [user_id]);
 
         res.json(ordersWithInfo.rows);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -71,7 +71,7 @@ router.delete('/delete_order/:order_id', async (req: Request, res: Response) => 
         await pool.query('DELETE FROM orders WHERE order_id = $1', [order_id]);
 
         res.json({ message: 'Order item deleted' });
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }

@@ -20,7 +20,7 @@ router.post('/add_address', async (req: Request, res: Response) => {
         );
 
         res.json(newAddress.rows[0]);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
@@ -43,7 +43,7 @@ router.get('/get_addresses/:user_id', async (req: Request, res: Response) => {
         );
 
         res.json(addresses.rows);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
