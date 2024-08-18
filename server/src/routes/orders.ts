@@ -2,50 +2,79 @@ import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
 import { pool } from "../../db";
 
-interface CartItem {
-    user_id: string;
-    product_id: number;
-    quantity: number;
-    total_price: number;
-  }
-  
-function calculateTotal(items: CartItem[]): number {
-    return items.reduce((total, item) => total + item.quantity * item.total_price, 0);
-}
-  
-router.post('/checkout/:cart_id', async (req: Request, res: Response) => {
+router.post('/finish_purchase', async (req: Request, res: Response) => {
     try {
-      const { cart_id } = req.params;
-  
-      // Retrieve cart items
-      const cartItemsResult = await pool.query('SELECT * FROM shopping_cart WHERE cart_id = $1', [cart_id]);
-      const cartItems = cartItemsResult.rows as CartItem[];
-  
-      // Calculate total amount
-      const totalAmount = calculateTotal(cartItems);
-  
-      // Create a new order
-      const newOrderResult = await pool.query('INSERT INTO orders (user_id, total_amount) VALUES ($1, $2) RETURNING order_id', [cartItems[0].user_id, totalAmount]);
-      const newOrderId = newOrderResult.rows[0].order_id;
-  
-      // Create order items
-      const orderItems = cartItems.map(item => ({
-        order_id: newOrderId,
-        product_id: item.product_id,
-        quantity: item.quantity,
-        price: item.total_price / item.quantity
-      }));
-      await pool.query('INSERT INTO order_items (order_id, product_id, quantity, price) VALUES $1', [orderItems]);
-  
-      // Delete the cart
-      await pool.query('DELETE FROM shopping_cart WHERE cart_id = $1', [cart_id]);
-  
-      res.json({ message: 'Checkout successful' });
-      
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Checkout failed');
+        const { user_id, product_id, quantity, product_size, total_price, address_id, purchase_date } = req.body;
+
+        // Perform any necessary validation on the data
+
+        // Insert the new order into the orders table
+        const newOrder = await pool.query(
+            'INSERT INTO orders (user_id, product_id, quantity, product_size, total_price, address_id, purchase_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [user_id, product_id, quantity, product_size, total_price, address_id, purchase_date]
+        );
+
+        res.json(newOrder.rows[0]);
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
     }
 });
-  
-  export default router;
+
+router.get('/get_orders/:user_id', async (req: Request, res: Response) => {
+    try {
+        const { user_id } = req.params;
+
+        // Use JOIN operations to get information from multiple tables
+        const ordersWithInfo = await pool.query(`
+            SELECT
+                orders.order_id,
+                orders.quantity,
+                orders.product_size,
+                orders.total_price,
+                orders.purchase_date,
+                addresses.cep,
+                addresses.street,
+                addresses.neighborhood,
+                addresses.city,
+                addresses.state,
+                addresses.number,
+                addresses.complement,
+                users.user_name,
+                products.product_name
+            FROM orders 
+            JOIN addresses ON orders.address_id = addresses.address_id
+            JOIN users ON orders.user_id = users.user_id
+            JOIN products ON orders.product_id = products.product_id
+            WHERE orders.user_id = $1
+        `, [user_id]);
+
+        res.json(ordersWithInfo.rows);
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+router.delete('/delete_order/:order_id', async (req: Request, res: Response) => {
+    try {
+        const { order_id } = req.params;
+
+        // Check if the order with the given order_id exists
+        const orderItem = await pool.query('SELECT * FROM orders WHERE order_id = $1', [order_id]);
+
+        if (orderItem.rows.length === 0) {
+            return res.status(404).send('Order item not found');
+        }
+
+        // Delete the order based on the order_id
+        await pool.query('DELETE FROM orders WHERE order_id = $1', [order_id]);
+
+        res.json({ message: 'Order item deleted' });
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+export default router;
